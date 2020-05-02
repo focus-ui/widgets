@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView Checkboxes</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView({
+                appendTo: ".container",
+                checkbox_visible: true,
+                data: [
+                    {name: "Item1"},
+                    {name: "Item2"},
+                    {name: "Item3"},
+                    {name: "Item4"},
+                    {name: "Item5"},
+                    {name: "Item6"},
+                    {name: "Item7"},
+                    {name: "Item8"},
+                    {name: "Item9"},
+                    {name: "Item10"}
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

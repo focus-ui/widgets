@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs Only Tabs</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .z-tabs.top .tabs ul.items li > .node {
+            border: none;
+            color: #777;
+            border-bottom: 2px solid transparent;
+        }
+
+        .z-tabs .tabs ul.items li.selected > .node {
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+
+        .z-tabs.top .tabs {
+            box-shadow: none;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var tabs = z.widget.Tabs({
+                appendTo: ".container",
+                content_visible: false
+            });
+            tabs.setData([
+                {name: "Tab1", content: "Tab1 content", remove_icon_visible: false},
+                {name: "Tab2", content: "Tab2 content"},
+                {name: "Tab3", content: "Tab3 content"},
+                {name: "Tab4", content: "Tab4 content"},
+                {name: "Tab5", content: "Tab5 content"},
+                {name: "Tab6", content: "Tab6 content"}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+</body>
+</html>

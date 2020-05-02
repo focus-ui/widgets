@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal API</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.widget.modal.init();//Initialize all modals with data-toggle="zw-modal" attribute
+            z.widget.modal.on("#onBtn");//Add modal open/close listener
+            z.dom.event.onclick("#apiBtn", function () {//Call api to open modal
+                z.widget.modal("#div3", {
+                    beforeClose: function () {
+                        return function (doClose) {
+                            if (window.confirm("Close?")) {
+                                doClose();
+                            }
+                        };
+                    }
+                });
+            });
+            z.dom.event.onclick("#okBtn", function () {//Call api to open modal
+                alert("OK");
+                z.widget.modal("#div3", false);
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="initBtn" class="btn btn-success" data-toggle="zw-modal" data-content="element:#div1">init()</button>
+    <button id="onBtn" class="btn btn-warning" data-content="element:#div2" data-close-on-click-outside="false">on()</button>
+    <button id="apiBtn" class="btn btn-secondary">modal()</button>
+</div>
+<div style="display: none">
+    <div id="div1" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">z.widget.modal.init()</span>
+                <span class="close" data-dismiss="modal">×</span>
+            </div>
+            <div class="body">
+                <p>
+                    In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode
+                    that disables the main window but keeps it visible, with the modal window as a child window in front of it. Users must interact with the modal window before
+                    they
+                    can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal
+                    dialogs
+                    because they often display a dialog box.
+                </p>
+            </div>
+            <div class="footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" autofocus>Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="div2" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">z.widget.modal.on(element)</span>
+                <span class="close" data-dismiss="modal">×</span>
+            </div>
+            <div class="body">
+                <p>
+                    User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective
+                    for
+                    that use.Modal windows are prone to mode errors.
+                </p>
+            </div>
+            <div class="footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" autofocus>Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="div3" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">z.widget.modal(contentElement,props/false)</span>
+                <span class="close" data-dismiss="modal">×</span>
+            </div>
+            <div class="body">
+                <p>
+                    On the Web, they often show images in detail, such as those implemented by Lightbox library, or are used for hover ads.
+                </p>
+            </div>
+            <div class="footer">
+                <button class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                <button id="okBtn" class="btn btn-primary btn-sm" autofocus>Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

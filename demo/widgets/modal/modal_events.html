@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Events</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../_lib/event-log.js"></script>
+    <script>
+        z.ready(function () {
+            z.dom.event.onclick("#openBtn", function () {
+                z.widget.modal("#modalDiv", {
+                    onOpen: function () {
+                        EventLogUtil.logEvent("onOpen", {type: "open"});
+                    },
+                    onClose: function () {
+                        EventLogUtil.logEvent("onClose", {type: "close"});
+                    }
+                });
+            });//open
+            z.dom.event.onclick("#okBtn", function () {
+                alert("ok");
+                z.widget.modal("#modalDiv", false);//close
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons small">
+    <button id="openBtn" class="btn btn-success">open</button>
+</div>
+<div class="setting">
+    <div id="eventTypeDiv">
+        <label>EventType: </label>
+        <label style="color: #3366cc">
+            <input id="onOpen_check" type="checkbox" checked>
+            onOpen
+        </label>
+        <label style="color: #dc3912">
+            <input id="onClose_check" type="checkbox" checked>
+            onClose
+        </label>
+    </div>
+    <pre id="eventPre" class="log-pre"></pre>
+</div>
+<div id="modalDiv" class="zw-modal">
+    <div class="content">
+        <div class="header">
+            <span class="title">About ZWidgets</span>
+            <span class="close" data-dismiss="modal">&times;</span>
+        </div>
+        <div class="body">
+            <p>ZWidgets is UI component library based on HTML5 and MVVM for quickly building powerful and high-performance web applications.</p>
+            <ul>
+                <li>Fast & Light
+                    <p>Quickly build lightning-fast applications with the simple codes, no dependence on other frameworks.</p>
+                </li>
+                <li>Easy to use
+                    <p>Based on the MVVM and OOP, if you know basic JavaScript and HTML, you can use it.</p>
+                </li>
+                <li>Extensible
+                    <p>Rich and complete components with powerful extensions, make it easy to customize.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="footer">
+            <button class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            <button id="okBtn" class="btn btn-primary btn-sm" autofocus>Ok</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Column Render</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <link rel="stylesheet" href="./grid_render.css">
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container"
+            });
+            grid.setColumns([
+                {name: "Text", field: "name"},
+                {
+                    name: "Checkbox",
+                    render: function (td, data, column) {
+                        var input = z.dom.create("input");
+                        input.setAttribute("type", "checkbox");
+                        input.disabled = true;
+                        input.checked = data.get("boolean") === true;
+                        td.appendChild(input);
+                    }
+                },
+                {
+                    name: "Img",
+                    render: function (td, data, column) {
+                        var imgSrc = data.get("img");
+                        if (imgSrc) {
+                            var img = document.createElement("img");
+                            img.src = imgSrc;
+                            td.appendChild(img);
+                        }
+                    }
+                },
+                {
+                    name: "Color",
+                    render: function (td, data, column) {
+                        var value = data.get("value");
+                        var cls = "success";
+                        if (value > 80) {
+                            cls = "danger";
+                        } else if (value > 60) {
+                            cls = "warning";
+                        }
+                        td.className = cls;
+                        td.innerHTML = "<span class='color " + cls + "'>" + value + "</span>"
+                    }
+                },
+                {
+                    name: "Progress",
+                    render: function (td, data, column) {
+                        var value = data.get("progress");
+                        var color = "progress-bar-success";
+                        if (value > 80) {
+                            color = "progress-bar-danger";
+                        } else if (value > 60) {
+                            color = "progress-bar-warning";
+                        }
+                        td.innerHTML = '<div class="progress"> <div class="progress-bar ' + color + '"style="width:' + value + '%"> ' + value + '% </div> </div>';
+                    }
+                },
+                {
+                    name: "#",
+                    render: function (td, data, column) {
+                        var btn = document.createElement("button");
+                        btn.innerHTML = "Remove";
+                        btn.onclick = function (evt) {
+                            if (window.confirm("Remove " + data.get("name") + "?")) {
+                                grid.removeData(data);
+                            }
+                        };
+                        td.appendChild(btn);
+                    }
+                }
+            ]);
+            grid.setData([
+                {name: "text1", boolean: true, img: "../_icons/social_blue/facebook_square.png", value: 20, progress: 88},
+                {name: "text2", boolean: false, img: "../_icons/social_blue/github_square.png", value: 70, progress: 66},
+                {name: "text3", boolean: true, img: "../_icons/social_blue/twitter_square.png", value: 90, progress: 22}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

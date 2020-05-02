@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Position</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        button {
+            width: 8em;
+        }
+
+        select {
+            width: 9em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.dom.event.onchange("#positionSelect", function () {
+                z.widget.notify(false);
+            });
+            z.dom.event.onchange("#directionSelect", function () {
+                z.widget.notify(false);
+            });
+            z.dom.event.onclick("#openBtn", function () {
+                var position = z.dom.getValue("#positionSelect");
+                var direction = z.dom.getValue("#directionSelect");
+                var content = "position:" + position + "<br>direction:" + direction;
+                z.widget.notify(content, {
+                    duration: 2000,
+                    close_icon_visible: z.dom.getValue("#closeCheck"),
+                    position: position,
+                    direction: direction
+                });
+            });
+            z.dom.event.onclick("#closeBtn", function () {
+                z.widget.notify(false);
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half padding container-fluid">
+    <div class="row form-group">
+        <label class="col-sm-2 col-form-label">Position</label>
+        <div class="col-sm-10">
+            <select id="positionSelect">
+                <option>top_right</option>
+                <option>top_left</option>
+                <option>bottom_right</option>
+                <option>bottom_left</option>
+            </select>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-2 col-form-label">Direction</label>
+        <div class="col-sm-10">
+            <select id="directionSelect">
+                <option></option>
+                <option>up</option>
+                <option>down</option>
+                <option>left</option>
+                <option>right</option>
+            </select>
+            <span>If the value is empty, it is determined by position</span>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input id="closeCheck" type="checkbox">close_icon_visible
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <button id="openBtn" class="btn btn-success">notify</button>
+            <button id="closeBtn" class="btn btn-secondary">close</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

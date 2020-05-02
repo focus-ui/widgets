@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs Content Type</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        #form > div {
+            margin-bottom: 0.3em;
+        }
+        #form label {
+            display: inline-block;
+            width: 8em;
+            text-align: right;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView();
+            listView.setData([
+                {name: "Item1"},
+                {name: "Item2"},
+                {name: "Item3"},
+                {name: "Item4"},
+                {name: "Item5"},
+                {name: "Item6"}
+            ]);
+            var tabs = z.widget.Tabs({
+                appendTo: ".container"
+            });
+            tabs.setData([
+                {name: "Text", content: "Text Content"},
+                {name: "Element", content: z.dom.query("form")},
+                {name: "Widget", content: listView.getRoot()}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div style="display: none">
+    <form id="form">
+        <div>
+            <label>Username:</label>
+            <input>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid With Icons</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                expand_on_dbl_click:true,
+                overflow: "scroll",
+                sortable: true,
+                hoverable: true,
+                data: SystemArray,
+                columns: [
+                    {name: "Name", field: "name", template: z.dom.query("#iconTemplate").innerHTML},
+                    {name: "Type", field: "type"},
+                    {name: "Total Size", field: "total_size", sortable: false},
+                    {name: "Free Space", field: "free_space", sortable: false}
+                ]
+            });
+            treeGrid.expandAll();
+        });
+    </script>
+</head>
+<script type="text/html" id="iconTemplate">
+    <%if(icon){%>
+    <img src="../_icons/windows/<%icon%>">
+    <%}%>
+    <%name%>
+</script>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

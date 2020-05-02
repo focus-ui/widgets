@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Value Type</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/form.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        z.ready(function () {
+            var form = z.form.Form("#formDiv");
+            z.dom.event.onclick("#setBtn", function () {
+                form.setValue({
+                    name: "Rider",
+                    age: 7,
+                    address: "California,New York"
+                })
+            });
+            z.dom.event.onclick("#getBtn", function () {
+                z.widget.alert(JSON.stringify(form.getValue(), null, "  "))
+            });
+            z.dom.event.onclick("#clearBtn", function () {
+                form.clearValue();
+            })
+        });
+    </script>
+</head>
+<body class="demo">
+<div id="formDiv" class="container container-fluid">
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-8">
+            <input class="form-control" ze-model="name">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Age(integer)</label>
+        <div class="col-sm-8">
+            <input class="form-control" ze-model="age" ze-model-type="integer">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Address(array)</label>
+        <div class="col-sm-8">
+            <input class="form-control" ze-model="address" ze-model-type="array">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"> </label>
+        <div class="col-sm-8">
+            <button id="setBtn" class="btn btn-primary">setValue</button>
+            <button id="getBtn" class="btn btn-success">getValue</button>
+            <button id="clearBtn" class="btn btn-secondary">clearValue</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

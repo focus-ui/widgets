@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Lazy Load</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        var loadChildren = function (tree, data) {
+            if (data.get("loaded") === true) {
+                return;
+            }
+            data.set("icon", "../_icons/loading.gif");
+            data.set("disabled", true);
+            z.util.callLater(function () {
+                var children = [];
+                var type = data.get("type");
+                if (type === "region") {
+                    children.push({parent: data, name: "Country1", type: "country"});
+                    children.push({parent: data, name: "Country2", type: "country"});
+                } else if (type === "country") {
+                    children.push({parent: data, name: "City1", type: "city"});
+                    children.push({parent: data, name: "City2", type: "city"});
+                    children.push({parent: data, name: "City3", type: "city"});
+                }
+                tree.addData(children);
+                data.set("loaded", true);
+                data.set("disabled", false);
+                data.removeProperty("icon", null);
+            }, 1200);
+        };
+
+        z.ready(function () {
+            var tree = z.widget.Tree({
+                appendTo: ".container",
+                hasChildrenVisible: function (data) {
+                    var type = data.get("type");
+                    return type === "region" || type === "country";
+                },
+                onExpand: function (data) {
+                    loadChildren(tree, data);
+                },
+                data: [
+                    {name: "Region1", type: "region"},
+                    {name: "Region2", type: "region"}
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

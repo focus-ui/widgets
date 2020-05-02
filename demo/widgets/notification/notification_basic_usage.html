@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.dom.event.onclick("#openBtn", function () {
+                var now = new Date();
+                z.widget.notify(now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + ":" + now.getMilliseconds() + "");
+            });
+            z.dom.event.onclick("#closeBtn", function () {
+                z.widget.notify(false);
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="openBtn" class="btn btn-success">notify</button>
+    <button id="closeBtn" class="btn btn-secondary">close</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Modal</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <style>
+        body {
+            height: auto;
+        }
+
+        body > .z-modal {
+            position: fixed;
+        }
+    </style>
+    <style>
+        .z-grid td {
+            vertical-align: middle !important;
+        }
+
+        .z-grid td > button {
+            padding: 0.1em 0.2em !important;
+            line-height: 1 !important;
+        }
+    </style>
+    <script>
+        var createOPButton = function (parent, label, onClick, opts) {
+            var button = z.dom.create("button", opts.className);
+            button.innerHTML = label;
+            z.dom.event.onclick(button, onClick, opts.this);
+            if (parent) {
+                parent.appendChild(button);
+            }
+            return button;
+        };
+        z.ready(function () {
+            var handleRemove = function (data) {
+                z.widget.confirm("Remove?", "Confirm", function (result) {//callback
+                    if (result) {
+                        grid.removeData(data);
+                    }
+                });
+            };
+            var handleEdit = function (data) {
+                openModal("Edit", data.getProperties());
+            };
+            var openModal = function (title, initValues) {
+                form.setValue(z.util.mergeObject({
+                    modal_title: title
+                }, initValues));
+                z.widget.modal("#modalDiv");
+            };
+            var form = z.form.Form("#modalDiv");
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                columns: [
+                    {name: "Name", field: "name"},
+                    {name: "Email", field: "email"},
+                    {name: "Country", field: "address.country"},
+                    {name: "State", field: "address.state"},
+                    {
+                        name: "#", width: 220, render: function (td, data) {
+                            createOPButton(td, "Edit", function () {
+                                handleEdit(data)
+                            }, {className: "btn btn-link text-primary"});
+                            createOPButton(td, "Remove", function () {
+                                handleRemove(data)
+                            }, {className: "btn btn-link text-danger"})
+                        }
+                    }
+                ],
+                data: [
+                    {
+                        id: 1, name: "Rider", email: "rider@focus-ui.com",
+                        address: {
+                            country: "United States", state: "California"
+                        }
+                    }
+                ]
+            });
+
+            var idIndex = 2;
+
+            z.dom.event.onclick("#addBtn", function () {
+                openModal("Add");
+            });
+            z.dom.event.onclick("#modalOkBtn", function () {
+                var values = form.getValue();
+                if (values == null) {
+                    return;
+                }
+                //send ajax request
+                var product_id = values.product_id;
+                if (product_id) {//edit
+                    var data = grid.findData("product_id", product_id);
+                    data.set(values);
+                } else {//add
+                    values.product_id = idIndex++;
+                    grid.addData(values);
+                }
+                z.widget.modal("#modalDiv", false);
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div style="padding: 0.2em">
+    <button id="addBtn" class="btn btn-success btn-sm">Add</button>
+</div>
+<div class="container"></div>
+<div class="modal-form" style="display: none">
+    <div id="modalDiv" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span ze-model="modal_title" class="title"></span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body container-fluid">
+                <input ze-model="id" hidden ze-model-type="integer">
+                <div class="row form-group">
+                    <label class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" ze-model="name" v-rules="required|alphanumeric" v-message="The name field must contain alpha-numeric characters">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" ze-model="email" v-rules="email">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" ze-model="address.country" v-rules="required">
+                            <option></option>
+                            <option>United States</option>
+                            <option>China</option>
+                            <option>United Kingdom</option>
+                            <option>Russia</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" ze-model="address.state" v-rules="required" placeholder="State">
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <button id="modalOkBtn" class="btn btn-primary btn-sm">Ok</button>
+                <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        button {
+            width: 7em;
+            margin: .3em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.tooltip.init();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding" style="padding: 60px 150px">
+    <div style="text-align: center">
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>up_left</b><br>Hello Tooltip!!" data-direction="up_left">up_left</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>up</b><br>Hello Tooltip!!" data-direction="up">up</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>up_right</b><br>Hello Tooltip!!" data-direction="up_right">up_right</button>
+    </div>
+    <div style="float: left;width: 7em">
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>left_up</b><br>Hello Tooltip!!" data-direction="left_up">left_up</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>left</b><br>Hello Tooltip!!" data-direction="left">left</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>left_down</b><br>Hello Tooltip!!" data-direction="left_down">left_down</button>
+    </div>
+    <div style="float: right;width: 7em">
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>right_up</b><br>Hello Tooltip!!" data-direction="right_up">right_up</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>right</b><br>Hello Tooltip!!" data-direction="right">right</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>right_down</b><br>Hello Tooltip!!" data-direction="right_down">right_down</button>
+    </div>
+    <div style="text-align: center;clear: both">
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>down_left</b><br>Hello Tooltip!!" data-direction="down_left">down_left</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>down</b><br>Hello Tooltip!!" data-direction="down">down</button>
+        <button class="btn btn-secondary btn-sm" data-toggle="zw-tooltip" data-content="<b>down_right</b><br>Hello Tooltip!!" data-direction="down_right">down_right</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./MenuDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                root_expand_icon_visible: true
+            });
+            menu.setData([
+                {
+                    name: "Menu1",
+                    children: [
+                        {
+                            name: "Item1",
+                            children: [
+                                {name: "SubItem1-1"},
+                                {name: "SubItem1-2"}]
+                        },
+                        {
+                            name: "Item2",
+                            children: [
+                                {name: "SubItem2-1"},
+                                {name: "SubItem2-2"}]
+                        }
+                    ]
+                },
+                {
+                    name: "Menu2",
+                    children: [
+                        {
+                            name: "Item1",
+                            children: [
+                                {name: "SubItem1-1"},
+                                {name: "SubItem1-2"}]
+                        },
+                        {
+                            name: "Item2",
+                            children: [
+                                {name: "SubItem2-1"},
+                                {name: "SubItem2-2"}]
+                        }
+                    ]
+                }
+            ]);
+            menu.expand(menu.findData("name", "Menu1"));
+            menu.expand(menu.findData("name", "Item1"));
+            z.dom.event.onchange("#directionSelect", function () {
+                menu.set("direction", z.dom.getValue("#directionSelect"));
+                menu.collapseAll();
+                menu.expand(menu.findData("name", "Menu1"));
+                menu.expand(menu.findData("name", "Item1"));
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div style="padding: 3em">
+    <label>Position</label>
+    <select id="directionSelect">
+        <option>down</option>
+        <option>down_right</option>
+        <option>down_left</option>
+        <option>up</option>
+        <option>up_right</option>
+        <option>up_left</option>
+        <option>right</option>
+        <option>right_down</option>
+        <option>right_up</option>
+        <option>left</option>
+        <option>left_down</option>
+        <option>left_up</option>
+    </select>
+</div>
+<div class="container border" style="height: auto;width: auto;margin-left: 320px;margin-top: 60px "></div>
+</body>
+</html>

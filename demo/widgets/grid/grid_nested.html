@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Nested</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <style>
+        tr:hover {
+            background-color: #f8f9fa !important;
+        }
+
+        td {
+            border-bottom-color: #bbb !important;
+        }
+
+        .nested_td {
+            padding: 0 !important;
+        }
+
+        .nested_td tr:hover {
+            background-color: transparent !important;
+        }
+
+        .nested_td td {
+            border: none !important;
+            border-bottom: 1px solid #e6e6e6 !important;
+        }
+
+        .nested_td tr:last-child td {
+            border-bottom: none !important;
+        }
+
+        .enMoney {
+            text-align: right;
+        }
+
+        .enMoney::before {
+            content: "$";
+        }
+
+        .number {
+            text-align: right !important;
+        }
+    </style>
+    <script>
+        var createNestedGrid = function (td, datas, cls) {
+            if (datas && datas.length > 0) {
+                var table = z.dom.create("table");
+                datas.forEach(function (item) {
+                    var tr = z.dom.create("tr");
+                    if (cls) {
+                        tr.innerHTML = "<td class='" + cls + "'>" + item + "</td>";
+                    } else {
+                        tr.innerHTML = "<td>" + item + "</td>";
+                    }
+                    table.appendChild(tr);
+                });
+                td.appendChild(table);
+                z.dom.addClass(td, "nested_td");
+            }
+        };
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll"
+            });
+            grid.setColumns([
+                {
+                    name: "Order ID", field: "order",
+                    render: function (td, data) {
+                        z.dom.addClass(td, "number");
+                        td.innerHTML = data.get("order");
+                    }
+                },
+                {
+                    name: "Product", field: "product_names",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("product_names"));
+                    }
+                },
+                {
+                    name: "Quantity", field: "quantities",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("quantities"), "number");
+                    }
+                },
+                {
+                    name: "Unit Price", field: "unit_prices",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("unit_prices"), "enMoney");
+                    }
+                },
+                {
+                    name: "Product Price", field: "product_prices",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("product_prices"), "enMoney");
+                    }
+                },
+                {
+                    name: "Total Price", field: "total_price",
+                    render: function (td, data) {
+                        z.dom.addClass(td, "enMoney");
+                        td.innerHTML = data.get("total_price");
+                    }
+                }
+            ]);
+            grid.setData([
+                {
+                    "order": 1,
+                    "product_ids": [1, 3, 5],
+                    "product_names": ["Product A", "Product C", "Product E"],
+                    "quantities": [10, 8, 2],
+                    "unit_prices": [3, 8, 18],
+                    "product_prices": [30, 64, 36],
+                    "total_price": 130
+                },
+                {
+                    "order": 2,
+                    "product_ids": [1, 2, 3, 4],
+                    "product_names": ["Product A", "Product B", "Product C", "Product D"],
+                    "quantities": [1, 5, 8, 7],
+                    "unit_prices": [3, 6, 8, 10],
+                    "product_prices": [3, 30, 64, 70],
+                    "total_price": 167
+                },
+                {
+                    "order": 3,
+                    "product_ids": [1, 3, 4],
+                    "product_names": ["Product A", "Product C", "Product D"],
+                    "quantities": [8, 1, 9],
+                    "unit_prices": [3, 8, 10],
+                    "product_prices": [24, 8, 90],
+                    "total_price": 122
+                },
+                {
+                    "order": 4,
+                    "product_ids": [5],
+                    "product_names": ["Product E"],
+                    "quantities": [1],
+                    "unit_prices": [18],
+                    "product_prices": [18],
+                    "total_price": 18
+                },
+                {
+                    "order": 5,
+                    "product_ids": [2, 4, 6],
+                    "product_names": ["Product B", "Product D", "Product F"],
+                    "quantities": [7, 1, 3],
+                    "unit_prices": [6, 10, 20],
+                    "product_prices": [42, 10, 60],
+                    "total_price": 112
+                },
+                {
+                    "order": 6,
+                    "product_ids": [1, 2, 3],
+                    "product_names": ["Product A", "Product B", "Product C"],
+                    "quantities": [1, 5, 2],
+                    "unit_prices": [3, 6, 8],
+                    "product_prices": [3, 30, 16],
+                    "total_price": 49
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

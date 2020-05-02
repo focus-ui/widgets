@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var pagination1 = z.widget.Pagination({
+                appendTo: "#pagination1Div",
+                total: 100
+            });
+            var pagination2 = z.widget.Pagination({
+                appendTo: "#pagination2Div",
+                total: 2001
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding">
+    <label style="display: inline-block;margin: 0 0 6px">total <= page_size * pager_count (100 <= 20*7)</label>
+    <div id="pagination1Div"></div>
+    <label style="display: inline-block;margin: 20px 0 6px">total > page_size * pager_count(2001>20*7)</label>
+    <div id="pagination2Div"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Expand SubGrid</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <style>
+        td.sub {
+            padding: 0.2em 2em !important;
+            background-color: #efefef;
+            font-size: 86%;
+        }
+
+        td.sub .indent {
+            display: none;
+        }
+    </style>
+    <script>
+        var orderColumns = [
+            {name: "Order ID", field: "order"},
+            {name: "Purchased on", field: "time"},
+            {name: "Total Price", field: "total_price"},
+            {name: "Status", field: "status"}
+        ];
+        var productColumns = [
+            {name: "Product", field: "product_name"},
+            {name: "Quantity", field: "quantity"},
+            {name: "Unit Price", field: "unit_price"},
+            {name: "Product Price", field: "product_price"}
+        ];
+        var renderProductGrid = function (td, data) {
+            var productGrid = data._productGrid;
+            if (!productGrid) {
+                productGrid = z.widget.Grid({
+                    columns: productColumns,
+                    data: data.get("products")
+                });
+                data._productGrid = productGrid;//for reuse
+            }
+            td.appendChild(productGrid.getRoot());
+        };
+        var colRender = function (td, data, render, isProductCol) {
+            if (data.get("order") != null) {
+                td.innerHTML = data.get(render);
+            } else {
+                if (isProductCol === true) {
+                    td.setAttribute("colspan", orderColumns.length);
+                    z.dom.addClass(td, "sub");
+                    renderProductGrid(td, data);
+                } else {
+                    z.dom.setStyle(td, "display", "none");
+                }
+            }
+        };
+        z.ready(function () {
+            //set column render
+            orderColumns.forEach(function (col) {
+                col.render = function (td, data) {
+                    colRender(td, data, col.field, col.field === "order");
+                }
+            });
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                overflow: "scroll",
+                columns: orderColumns
+            });
+            treeGrid.setData([
+                {
+                    "order": 1, "total_price": 130, "status": "Complete", "time": "2019-05-01 10:20:30",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product A", quantity: 10, unit_price: 3, product_price: 30},
+                                {product_name: "Product C", quantity: 8, unit_price: 8, product_price: 64},
+                                {product_name: "Product E", quantity: 2, unit_price: 18, product_price: 36}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "order": 2, "total_price": 167, "status": "Pending", "time": "2019-05-02 11:21:31",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product A", quantity: 1, unit_price: 3, product_price: 3},
+                                {product_name: "Product B", quantity: 5, unit_price: 6, product_price: 30},
+                                {product_name: "Product C", quantity: 8, unit_price: 8, product_price: 64},
+                                {product_name: "Product D", quantity: 7, unit_price: 10, product_price: 70}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "order": 3, "total_price": 122, "status": "Complete", "time": "2019-05-06 11:16:26",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product A", quantity: 8, unit_price: 3, product_price: 24},
+                                {product_name: "Product C", quantity: 1, unit_price: 8, product_price: 8},
+                                {product_name: "Product D", quantity: 9, unit_price: 10, product_price: 90}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "order": 4, "total_price": 18, "status": "Complete", "time": "2019-05-07 21:17:27",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product E", quantity: 1, unit_price: 18, product_price: 18}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "order": 5, "total_price": 112, "status": "Pending", "time": "2019-05-08 08:10:22",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product B", quantity: 7, unit_price: 6, product_price: 42},
+                                {product_name: "Product D", quantity: 1, unit_price: 10, product_price: 10},
+                                {product_name: "Product F", quantity: 3, unit_price: 20, product_price: 60}
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "order": 6, "total_price": 49, "status": "Complete", "time": "2019-05-12 12:20:36",
+                    children: [
+                        {
+                            "products": [
+                                {product_name: "Product A", quantity: 1, unit_price: 3, product_price: 3},
+                                {product_name: "Product B", quantity: 5, unit_price: 6, product_price: 30},
+                                {product_name: "Product C", quantity: 2, unit_price: 8, product_price: 16}
+                            ]
+                        }
+                    ]
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

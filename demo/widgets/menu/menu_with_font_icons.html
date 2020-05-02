@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu With Font Icons</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./MenuDemoData.js"></script>
+    <style>
+        .z-menu .items .children .item > .node .in i.fa {
+            width: 1em;
+            margin-left: -1.3em;
+            margin-right: .3em;
+        }
+
+        .z-menu .items .children .item > .node .checkbox + .in i.fa {
+            margin-left: 0;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                data: BrowserFontIconMenuArray
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container border auto-height"></div>
+</body>
+</html>

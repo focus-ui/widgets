@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Expand Detail</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <style>
+        tr {
+            cursor: pointer;
+        }
+        td.detail {
+            padding: 1em 2em !important;
+            background-color: #efefef;
+            font-size: 86%;
+            cursor: auto;
+        }
+        td.detail .indent {
+            display: none;
+        }
+        .detail img {
+            width: 120px !important;
+            height: 60px !important;
+            float: left;
+        }
+        .detail .info {
+            margin-left: 120px;
+        }
+        .detail .info .item {
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .detail .info .item label {
+            width: 7em;
+            padding: 0.2em 1em;
+            display: inline-block;
+            text-align: right;
+            font-weight: bold;
+        }
+        .detail .info .item span {
+            width: 8em;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        var countryColumns = [
+            {name: "Country", field: "country"},
+            {name: "Population", field: "population"},
+            {name: "Area", field: "area"},
+            {name: "Official languages", field: "language"}
+        ];
+        var createInfoItem = function (label, value) {
+            return "<span class='item'><label>" + label + ":</label><span>" + value + "</span></span>";
+        };
+        var renderDetail = function (td, data) {
+            if (!data._detailDiv) {
+                var div = z.dom.create("div");
+                div.innerHTML = "<img src=../_icons/flag/" + data.get("flag") + ">" + "<div class='info'>"
+                    + createInfoItem("Capital", data.get("capital")) + createInfoItem("Largest City", data.get("largest_city"))
+                    + createInfoItem("Currency", data.get("currency")) + createInfoItem("Calling code", data.get("calling_code")) + "</div>";
+                data._detailDiv = div;
+            }
+            td.appendChild(data._detailDiv);
+        };
+        var colRender = function (td, data, render, isDetailCol) {
+            if (data.get("country") != null) {
+                td.innerHTML = data.get(render);
+            } else {
+                if (isDetailCol === true) {
+                    td.setAttribute("colspan", countryColumns.length);
+                    z.dom.addClass(td, "detail");
+                    renderDetail(td, data);
+                } else {
+                    z.dom.setStyle(td, "display", "none");
+                }
+            }
+        };
+        z.ready(function () {
+            countryColumns.forEach(function (col) {
+                col.render = function (td, data) {
+                    colRender(td, data, col.field, col.field === "country");
+                }
+            });
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                overflow: "scroll",
+                accordion: true,
+                expand_on_click: true,
+                columns: countryColumns
+            });
+            treeGrid.setData([
+                {
+                    country: "United States", area: "9,833,520", population: "327,167,434", language: "English",
+                    children: [
+                        {capital: "Washington, D.C.", largest_city: "New York City", currency: "USD($)", calling_code: "+1", flag: "usa.png"}
+                    ]
+                },
+                {
+                    country: "China", area: "9,596,961", population: "1,403,500,365", language: "Chinese",
+                    children: [
+                        {capital: "Beijing", largest_city: "Shanghai", currency: "CNY(¥)", calling_code: "+86", flag: "china.png"}
+                    ]
+                },
+                {
+                    country: "United Kingdom", area: "242,495", population: "66,040,229", language: "English",
+                    children: [
+                        {capital: "London", largest_city: "London", currency: "GBP(£)", calling_code: "+44", flag: "united_kingdom.png"}
+                    ]
+                },
+                {
+                    country: "Russia", area: "17,125,191", population: "146,793,744", language: "Russian",
+                    children: [
+                        {capital: "Moscow", largest_city: "Moscow", currency: "RUB(₽)", calling_code: "+7", flag: "russia.png"}
+                    ]
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

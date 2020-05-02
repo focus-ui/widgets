@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validator Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/form.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        z.ready(function () {
+            var validator = z.form.Validator("#formDiv", [
+                {name: "username", rules: "required|alphanumeric"},
+                {name: "email", rules: "email"},
+                {name: "password", rules: "required|minlength[8]"},
+                {name: "confirm_password", rules: "required|match[password]"},
+                {name: "city", rules: "required"},
+                {name: "agree", rules: "required"}
+            ]);
+            z.dom.event.onclick("#valBtn", function () {
+                var errArr = validator.validate();
+                console.log(errArr.length > 0 ? "error count: " + errArr.length : "success");
+            });
+            z.dom.event.onclick("#resetBtn", function () {
+                validator.reset();
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div id="formDiv" class="container container-fluid">
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-8">
+            <input class="form-control" name="username">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-8">
+            <input class="form-control" name="email">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control" name="password">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Confirm Password</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control" name="confirm_password">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">City</label>
+        <div class="col-sm-8">
+            <select class="form-control" name="city">
+                <option></option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"> </label>
+        <div class="col-sm-8">
+            <label>
+                <input type="checkbox" name="agree" class="form-check-input">
+                Agree to the Website Membership Agreement, Privacy Policy.
+                <span class="z-validator-message" v-message-for="agree"></span>
+            </label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"> </label>
+        <div class="col-sm-8">
+            <button id="valBtn" class="btn btn-primary">Validate</button>
+            <button id="resetBtn" class="btn btn-success">Reset</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

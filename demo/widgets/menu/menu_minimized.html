@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minimized Menu</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./MenuDemoData.js"></script>
+    <style>
+        .z-menu {
+            float: right;
+        }
+
+        .z-menu .items > .item.hover {
+            background-color: rgba(0, 0, 0, 0.125);
+        }
+
+        .z-menu .item > .node {
+            padding: 0.1em 0.2em;
+        }
+
+        .z-menu .children .item > .node .in i.fa {
+            width: 1em;
+            margin-left: -1.3em;
+            margin-right: .3em;
+        }
+
+        .z-menu .children .item > .node .checkbox + .in i.fa {
+            margin-left: 0;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                direction: "down_left",
+                data:{
+                    name: "<i class='fa fa-bars'></i>",
+                    children: BrowserFontIconMenuArray
+                }
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container border auto-height"></div>
+</body>
+</html>

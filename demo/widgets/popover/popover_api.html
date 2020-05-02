@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popover API</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        #div3 button {
+            width: 5em;
+            margin: .3em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.popover.init();//Initialize all popovers with data-toggle="zw-popover" attribute
+            z.widget.popover("#autoBtn");//Add popover open/close listener
+            z.dom.event.on("#onBtn", "click", function () {//Call api to open popover
+                if (z.dom.query("#popContainer").contains(z.dom.query("#div3"))) {
+                    z.widget.popover.open("#onBtn", {content: "element:#div3", title: "Title"});
+                }
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button class="btn btn-secondary" data-toggle="zw-popover" data-content="z.widget.popover.init();" data-title="Title">init()</button>
+    <button id="autoBtn" class="btn btn-success" data-content="element:#div2" data-title="Title">popover()</button>
+    <button id="onBtn" class="btn btn-danger">open()</button>
+</div>
+<div id="popContainer" style="display: none">
+    <div id="div2">
+        <p>z.widget.popover(element);</p>
+        <div style="text-align: center">
+            <button data-dismiss="popover" class="btn btn-success btn-sm">Close</button>
+        </div>
+    </div>
+    <div id="div3">
+        <p>z.widget.popover.open(hostElement,content)</p>
+        <div style="text-align: center">
+            <button data-dismiss="popover" class="btn btn-secondary btn-sm">Cancel</button>
+            <button id="confirmOKBtn" class="btn btn-primary btn-sm" onclick="alert('OK')">OK</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

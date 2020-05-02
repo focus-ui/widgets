@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView Template</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .z-listview .item > .node .in {
+            width: 100%;
+        }
+        .z-listview .item > .node {
+            color: #212121;
+        }
+        .z-listview .item > .node:hover {
+            background: #EAEAEA;
+        }
+        .z-listview .item.selected > .node {
+            background: #c7e0f4;
+            color: #212121;
+        }
+        .template {
+            position: relative;
+        }
+        .template .logo {
+            width: 2em !important;
+            height: 2em !important;
+            vertical-align: top !important;
+            float: left;
+        }
+        .template .info {
+            margin-left: 2.5em;
+            position: relative;
+        }
+        .template .info > div {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .template.unread .info .sender {
+            font-weight: 600;
+        }
+        .template .info .subject {
+            margin-right: 5em;
+        }
+        .template .info .date {
+            position: absolute;
+            top: 1em;
+            right: 0.3em;
+            color: #666666;
+        }
+        .template.unread .info .subject {
+            font-weight: 600;
+            color: #0078D7;
+        }
+        .template.unread .info .date {
+            color: #0078D7;
+        }
+        .template .operate {
+            display: none;
+            position: absolute;
+            top: -0.3em;
+            right: 0.5em;
+            color: #666666;
+        }
+        .template .operate a {
+            cursor: pointer;
+        }
+        .template .operate a:hover {
+            color: #212121;
+        }
+        .template .operate a.delete:hover {
+            color: #dc3545;
+        }
+        .template:hover .operate {
+            display: block;
+        }
+    </style>
+    <script>
+        var App = {
+            init: function () {
+                var listView = z.widget.ListView({
+                    appendTo:".container",
+                    template: z.dom.query("#templateDiv").innerHTML
+                });
+                listView.onSelectBatchChange(function () {
+                    listView.getLastSelected().set("unread", false);//select to mark as read
+                });
+                listView.setData([
+                    {
+                        "id": 0, unread: true, sender: "Ironman", date: "12/11/2018",
+                        image: "../_icons/social_blue/linkedin_square.png",
+                        subject: "Ironman Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in linkedin."
+                    },
+                    {
+                        "id": 1, unread: true, sender: "Thor", date: "12/10/2018",
+                        image: "../_icons/social_blue/facebook_square.png",
+                        subject: "Thor Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in facebook."
+                    },
+                    {
+                        "id": 2, unread: false, sender: "Superman", date: "12/09/2018",
+                        image: "../_icons/social_blue/instagram_square.png",
+                        subject: "Superman Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in instagram."
+                    },
+                    {
+                        "id": 3, unread: false, sender: "Batman", date: "12/08/2018",
+                        image: "../_icons/social_blue/twitter_square.png",
+                        subject: "Batman Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in twitter."
+                    },
+                    {
+                        "id": 4, unread: true, sender: "Robin", date: "12/07/2018",
+                        image: "../_icons/social_blue/github_square.png",
+                        subject: "Robin Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in github."
+                    },
+                    {
+                        "id": 5, unread: false, sender: "Hulk", date: "12/06/2018",
+                        image: "../_icons/social_blue/youtube_square.png",
+                        subject: "Hulk Send you a new message",
+                        content: "Hi Tao, I want to invite you to become a friend in youtube."
+                    }
+                ]);
+                App.listview = listView;
+            },
+            handleDelete: function (id) {
+                App.listview.removeData({"id": id});
+            },
+            markAsRead: function (id) {
+                App.listview.findData("id", id).set("unread", false);
+            },
+            markAsUnread: function (id) {
+                App.listview.findData("id", id).set("unread", true);
+            }
+        };
+        z.ready(App.init);
+    </script>
+</head>
+<script type="text/html" id="templateDiv">
+    <div class="template <%unread===true?'unread':''%>">
+        <img class="logo" src="<%image%>">
+        <div class="info">
+            <div class="sender"><%sender%></div>
+            <div class="subject"><%subject%></div>
+            <div class="content"><%content%></div>
+            <div class="date"><%date%></div>
+        </div>
+        <div class="operate">
+            <a title="Delete" class="fa fa-trash-o delete" onclick="App.handleDelete(<%id%>)"></a>
+            <%if(unread===true){%>
+            <a title="Mark as read" class="fa fa-envelope-open-o" onclick="App.markAsRead(<%id%>)"></a>
+            <%}%>
+            <%if(unread!==true){%>
+            <a title="Mark as unread" class="fa fa-envelope-o" onclick="App.markAsUnread(<%id%>)"></a>
+            <%}%>
+        </div>
+    </div>
+</script>
+<body class="demo">
+<div class="container small" style="width: 320px"></div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MessageBox Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.dom.event.onclick("#alertBtn", function () {
+                z.widget.alert("This is alert!!", "Alert");
+            });
+            z.dom.event.onclick("#confirmBtn", function () {
+                z.widget.confirm("This is confirm!!", "Confirm", function (result) {//callback
+                    z.widget.notify(result + "", {
+                        type: result === true ? "success" : "error",
+                        duration: 1200
+                    });
+                });
+            });
+            z.dom.event.onclick("#promptBtn", function () {
+                z.widget.prompt("This is prompt!!", "Prompt", function (result) {//callback
+                    z.widget.notify(result + "", {
+                        type: result != null ? "success" : "error",
+                        duration: 1200
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="alertBtn" class="btn btn-success">alert</button>
+    <button id="confirmBtn" class="btn btn-warning">confirm</button>
+    <button id="promptBtn" class="btn btn-secondary">prompt</button>
+</div>
+</body>
+</html>

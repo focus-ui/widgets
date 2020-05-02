@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView With Icons</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView({
+                appendTo:".container",
+                data:[
+                    {name: "Access", icon: "../_icons/office/Access.png"},
+                    {name: "Excel", icon: "../_icons/office/Excel.png"},
+                    {name: "Exchange", icon: "../_icons/office/Exchange.png"},
+                    {name: "OneDrive", icon: "../_icons/office/OneDrive.png"},
+                    {name: "OneNote", icon: "../_icons/office/OneNote.png"},
+                    {name: "Outlook", icon: "../_icons/office/Outlook.png"},
+                    {name: "PowerPoint", icon: "../_icons/office/PowerPoint.png"},
+                    {name: "Publisher", icon: "../_icons/office/Publisher.png"},
+                    {name: "SharePoint", icon: "../_icons/office/SharePoint.png"},
+                    {name: "Skype", icon: "../_icons/office/Skype.png"},
+                    {name: "Teams", icon: "../_icons/office/Teams.png"},
+                    {name: "Visio", icon: "../_icons/office/Visio.png"},
+                    {name: "Word", icon: "../_icons/office/Word.png"},
+                    {name: "Yammer", icon: "../_icons/office/Yammer.png"}
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

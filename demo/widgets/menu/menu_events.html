@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Events</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../_lib/event-log.js"></script>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                mode: "vertical",
+                root_expand_icon_visible: true,
+                open_on_hover: true
+            });
+            menu.onCheckChange(function (evt) {
+                var checkedArray = menu.getChecked();
+                var checkDataNameArray = [];
+                checkedArray.forEach(function (data) {
+                    checkDataNameArray.push(data.get("name"));
+                });
+                EventLogUtil.logEvent("onCheckChange", {
+                    "data": evt.data.get("name"),
+                    "type": evt.type,
+                    "checked": checkDataNameArray
+                });
+            });
+            menu.onMenuItemClick(function (evt) {
+                EventLogUtil.logEvent("onMenuItemClick", {"data": evt.data.get("name")});
+            });
+            menu.setData([
+                {
+                    name: "Menu1",
+                    children: [
+                        {
+                            name: "Item1",
+                            children: [
+                                {name: "SubItem1-1", checkbox_visible: true},
+                                {name: "SubItem1-2"}]
+                        },
+                        {
+                            name: "Item2",
+                            disabled: true,
+                            children: [
+                                {name: "SubItem2-1", checkbox_visible: true},
+                                {name: "SubItem2-2", checkbox_visible: true}]
+                        }
+                    ]
+                },
+                {
+                    name: "Menu2",
+                    children: [
+                        {
+                            name: "Item1",
+                            children: [
+                                {name: "SubItem1-1", checkbox_visible: true},
+                                {name: "SubItem1-2"}]
+                        },
+                        {
+                            name: "Item2",
+                            children: [
+                                {name: "SubItem2-1"},
+                                {name: "SubItem2-2"}]
+                        }
+                    ]
+                },
+                {
+                    name: "Menu3"
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small border"></div>
+<div class="setting">
+    <div id="eventTypeDiv">
+        <label>EventType: </label>
+        <label style="color: #3366cc">
+            <input id="onMenuItemClick_check" type="checkbox" checked>
+            onMenuItemClick
+        </label>
+        <label style="color:#ff9900 ">
+            <input id="onCheckChange_check" type="checkbox" checked>
+            onCheckChange
+        </label>
+    </div>
+    <pre id="eventPre" class="log-pre"></pre>
+</div>
+</body>
+</html>

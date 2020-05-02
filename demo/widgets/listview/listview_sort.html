@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView Sort</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var sortBy;
+            var compare = function (d1, d2) {
+                var v1 = d1.get(sortBy);
+                var v2 = d2.get(sortBy);
+                if (v1 < v2) {
+                    return 1;
+                }
+                if (v1 > v2) {
+                    return -1;
+                }
+                return 0;
+            };
+            var listView = z.widget.ListView({
+                appendTo:".container",
+                getLabel: function (data) {
+                    return data.get("name") + " / " + data.get("ratings") + "% / " + data.get("change")+"%";
+                }
+            });
+            z.dom.event.onchange("#sortSelect", function () {
+                sortBy = z.dom.getValue("#sortSelect");
+                if (sortBy) {
+                    listView.set("sort_compare", compare);
+                } else {
+                    listView.remove("sort_compare");
+                }
+                listView.update();
+            });
+            listView.setData([
+                {name: "Java", ratings: 16.88, change: 3.92},
+                {name: "C", ratings: 14.97, change: 8.49},
+                {name: "C++", ratings: 7.47, change: 1.92},
+                {name: "Python", ratings: 6.99, change: 3.30},
+                {name: "Visual Basic .NET", ratings: 4.76, change: 2.19},
+                {name: "C#", ratings: 3.54, change: -0.65},
+                {name: "PHP", ratings: 2.93, change: 0.63},
+                {name: "JavaScript", ratings: 2.41, change: 0.31},
+                {name: "SQL", ratings: 2.32, change: 2.32},
+                {name: "Assembly language", ratings: 1.41, change: -0.40},
+                {name: "Swift", ratings: 1.38, change: -0.44},
+                {name: "Delphi/Object Pascal", ratings: 1.37, change: -0.45},
+                {name: "MATLAB", ratings: 1.37, change: -0.25},
+                {name: "Objective-C", ratings: 1.36, change: -0.15},
+                {name: "Ruby", ratings: 1.18, change: -0.78},
+                {name: "Perl", ratings: 1.18, change: -0.82},
+                {name: "Go", ratings: 1.00, change: -0.65},
+                {name: "R", ratings: 0.97, change: -0.80},
+                {name: "Visual Basic", ratings: 0.92, change: -0.89},
+                {name: "PL/SQL", ratings: 0.70, change: -0.51}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+<div class="setting">
+    SortBy:
+    <select id="sortSelect">
+        <option></option>
+        <option value="change">change</option>
+        <option value="ratings">ratings</option>
+    </select>
+</div>
+</body>
+</html>

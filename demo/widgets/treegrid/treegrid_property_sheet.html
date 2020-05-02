@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Property Sheet</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <link rel="stylesheet" href="./sheet.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var sheet = z.widget.TreeGrid({
+                appendTo: ".container",
+                expand_on_click: true,
+                columns: [
+                    {name: "Key", field: "key"},
+                    {name: "Value", field: "value"}
+                ]
+            });
+            sheet.setData([
+                {key: "Name", value: "Lucy"},
+                {key: "Type", value: "Employee"},
+                {
+                    key: "Address",
+                    children: [
+                        {key: "Country", value: "United States"},
+                        {key: "State", value: "California"}
+                    ]
+                }
+            ]);
+            sheet.expandAll();
+        })
+    </script>
+</head>
+<body class="demo">
+<div class="container small sheet"></div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MessageBox Promise</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            if (!window.Promise) {
+                alert("Browser does not support Promise");
+                return;
+            }
+            z.dom.event.onclick("#alertBtn", function () {
+                z.widget.alert("This is confirm!!", "Alert", {promise: true}).then(function (result) {
+                    z.widget.notify(result + "", {
+                        duration: 1200,
+                        title: "Result"
+                    });
+                }).catch(function (reason) {
+                    z.widget.alert(reason);
+                });
+            });
+            z.dom.event.onclick("#confirmBtn", function () {
+                z.widget.confirm("This is confirm!!", "Confirm").then(function (result) {
+                    z.widget.notify(result + "", {
+                        type: "success",
+                        duration: 1200
+                    });
+                }).catch(function (reason) {
+                    z.widget.notify(reason + "", {
+                        type: "error",
+                        duration: 1200
+                    });
+                });
+            });
+            z.dom.event.onclick("#promptBtn", function () {
+                z.widget.prompt("This is prompt!!", "Prompt").then(function (result) {
+                    z.widget.notify(result + "", {
+                        type: "success",
+                        duration: 1200
+                    });
+                }).catch(function (reason) {
+                    z.widget.notify(reason + "", {
+                        type: "error",
+                        duration: 1200
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="alertBtn" class="btn btn-success">alert</button>
+    <button id="confirmBtn" class="btn btn-warning">confirm</button>
+    <button id="promptBtn" class="btn btn-secondary">prompt</button>
+</div>
+</body>
+</html>

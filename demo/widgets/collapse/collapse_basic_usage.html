@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collapse Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var collapse = z.widget.Collapse(z.dom.query("#coppaseUL"));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding">
+    <ul id="coppaseUL">
+        <li name="Group1">
+            This is group1 content
+        </li>
+        <li name="Group2">
+            This is group2 content
+        </li>
+        <li name="Group3">
+            This is group3 content
+        </li>
+    </ul>
+</div>
+</body>
+</html>

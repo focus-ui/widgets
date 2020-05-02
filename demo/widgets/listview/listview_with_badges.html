@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView With Badges</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .success a {
+            color: rgb(28, 184, 65);
+        }
+        .error a {
+            color: rgb(202, 60, 60);
+        }
+        .warning a {
+            color: rgb(223, 117, 20);
+        }
+        .secondary a {
+            color: rgb(66, 184, 221);
+        }
+        .node .in {
+            width: 100%;
+        }
+        .badge {
+            float: right;
+            color: #fff;
+            background-color: #007bff;
+            padding: 0 0.3em;
+            border-radius: 0.6em;
+            font-size: 80%;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView({
+                appendTo:".container",
+                selectable: false,
+                data:[
+                    {
+                        name: "<a href='./listview_basic_usage.html' target='_blank'>Basic Usage</a><span class='badge'>20</span>",
+                        attributes: {title: "ListView basic usage", class: "success"}
+                    },
+                    {
+                        name: "<a href='./listview_with_icons.html' target='_blank'>With Icons</a><span class='badge'>6</span>",
+                        attributes: {title: "Use image as icon", class: "error"}
+                    },
+                    {
+                        name: "<a href='./listview_with_font_icons.html' target='_blank'>With Font Icons</a><span class='badge'>12</span>",
+                        attributes: {title: "Use font icon as icon", class: "warning"}
+                    },
+                    {
+                        name: "<a href='./listview_with_badges.html' target='_blank'>With Badges</a><span class='badge'>8</span>",
+                        attributes: {title: "Show badges", class: "secondary"}
+                    },
+                    {
+                        name: "<a href='./listview_remove.html' target='_blank'>Remove</a>",
+                        attributes: {title: "Show remove icon", class: "error"}
+                    },
+                    {
+                        name: "<a href='./listview_checkboxes.html' target='_blank'>Checkboxes</a><span class='badge'>2</span>",
+                        attributes: {title: "Show checkbox", class: "warning"}
+                    }
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

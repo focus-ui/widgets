@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.widget.modal.init();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="openBtn" class="btn btn-success" data-toggle="zw-modal" data-content="element:#modalDiv">open</button>
+    <div id="modalDiv" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">About ZWidgets</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                <p>ZWidgets is UI component library based on HTML5 and MVVM for quickly building powerful and high-performance web applications.</p>
+                <ul>
+                    <li>Fast & Light
+                        <p>Quickly build lightning-fast applications with the simple codes, no dependence on other frameworks.</p>
+                    </li>
+                    <li>Easy to use
+                        <p>Based on the MVVM and OOP, if you know basic JavaScript and HTML, you can use it.</p>
+                    </li>
+                    <li>Extensible
+                        <p>Rich and complete components with powerful extensions, make it easy to customize.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <button class="btn btn-primary btn-sm" data-dismiss="modal" autofocus>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

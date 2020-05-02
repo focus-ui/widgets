@@ -1,0 +1,46 @@
+.drawer {
+  position: absolute !important;
+  margin: 0 !important;
+}
+.drawer > .content {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+.drawer.right,
+.drawer.left {
+  top: 0;
+  width: 28em;
+  max-width: 80%;
+  height: 100%;
+}
+.drawer.right {
+  right: 0;
+  left: auto;
+}
+.drawer.left {
+  left: 0;
+  right: auto;
+}
+.drawer.top,
+.drawer.bottom {
+  width: 100%;
+  max-width: none;
+  height: 28em;
+  max-height: 80%;
+}
+.drawer.top {
+  top: 0;
+  bottom: auto;
+}
+.drawer.bottom {
+  bottom: 0;
+  top: auto;
+}
+.drawer:not(.right):not(.left):not(.top):not(.bottom) {
+  top: 0;
+  width: 28em;
+  max-width: 80%;
+  height: 100%;
+  right: 0;
+  left: auto;
+}

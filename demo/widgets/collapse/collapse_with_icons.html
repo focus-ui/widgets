@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collapse With Icons</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .ts-item:first-letter {
+            font-size: 30px;
+            font-style: italic;
+        }
+
+        .ts-item img {
+            float: left;
+            padding: 10px;
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.Collapse(z.dom.query("#collapseUL"));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding">
+    <ul id="collapseUL">
+        <li id="basketballDiv" name="Basketball" icon="../tabs/_icons/basketball_icon.png">
+            <div class="ts-item">
+                <img src="../tabs/_icons/basketball.png">
+                Basketball is a sport, generally played by two teams of five players on a rectangular court. The
+                objective is to shoot a ball through a hoop 18 inches (46 cm) in diameter and 10 feet (3.048 m) high
+                mounted to a backboard at each end.
+                <br>
+                A team can score a field goal by shooting the ball through the basket during regular play. A field goal
+                scores three points for the shooting team if the player shoots from behind the three-point line, and two
+                points if shot from in front of the line. A team can also score via free throws, which are worth one
+                point, after the other team is assessed with certain fouls. The team with the most points at the end of
+                the game wins, but additional time (overtime) is issued when the score is tied at the end of regulation.
+                The ball can be advanced on the court by throwing it to a teammate, or by bouncing it while walking or
+                running (dribbling). It is a violation to lift, or drag, one's pivot foot without dribbling the ball, to
+                carry it, or to hold the ball with both hands then resume dribbling.
+            </div>
+        </li>
+        <li id="footballDiv" name="Football" icon="../tabs/_icons/football_icon.png">
+            <div class="ts-item">
+                <img src="../tabs/_icons/football.png">
+                Football is a family of team sports that involve, to varying degrees, kicking a ball to score a goal.
+                Unqualified, the word football is understood to refer to whichever form of football is the most popular
+                in the regional context in which the word appears. Sports commonly called 'football' in certain places
+                include: association football (known as soccer in some countries); gridiron football (specifically
+                American football or Canadian football); Australian rules football; rugby football (either rugby league
+                or rugby union); and Gaelic football. These different variations of football are known as football
+                codes.
+            </div>
+        </li>
+        <li id="tennisDiv" name="Tennis" icon="../tabs/_icons/tennis_icon.png">
+            <div class="ts-item">
+                <img src="../tabs/_icons/tennis.png">
+                Tennis is a racket sport that can be played individually against a single opponent (singles) or between
+                two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to
+                strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. The
+                object of the game is to play the ball in such a way that the opponent is not able to play a valid
+                return. The player who is unable to return the ball will not gain a point, while the opposite player
+                will.
+                <br>
+                Tennis is an Olympic sport and is played at all levels of society and at all ages. The sport can be
+                played by anyone who can hold a racket, including wheelchair users. The modern game of tennis originated
+                in Birmingham, England
+                <br>
+                Tennis is played by millions of recreational players and is also a popular worldwide spectator sport.
+                The four Grand Slam tournaments (also referred to as the "Majors") are especially popular: the
+                Australian Open played on hard courts, the French Open played on red clay courts, Wimbledon played on
+                grass courts, and the US Open played also on hard courts.
+            </div>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

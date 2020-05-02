@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Inline Edit</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <link rel="stylesheet" href="./grid_render.css">
+    <style>
+        td input, td select {
+            width: 100%;
+        }
+        td input[type=checkbox] {
+            width: auto;
+        }
+        .z-grid > .body tbody:empty {
+            display: table-caption;
+        }
+        .z-grid > .body tbody:empty:before {
+            content: "No Data Available";
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            color: #CCCCCC;
+            font-size: 92%;
+            padding: 1em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll"
+            });
+            grid.setColumns([
+                {
+                    name: "text", field: "text",
+                    render: function (td, data, column) {
+                        appendInput(td, data, column)
+                    }
+                },
+                {
+                    name: "checkbox", field: "checkbox",
+                    render: function (td, data, column) {
+                        appendInput(td, data, column, {type: "checkbox"})
+                    }
+                },
+                {
+                    name: "select", field: "select",
+                    render: function (td, data, column) {
+                        appendSelect(td, data, column, ["item1", "item2", "item3"])
+                    }
+                },
+                {
+                    name: "date", field: "date",
+                    render: function (td, data, column) {
+                        appendInput(td, data, column, {type: "date"})
+                    }
+                },
+                {
+                    name: "number", field: "number",
+                    render: function (td, data, column) {
+                        appendInput(td, data, column, {type: "number", min: 0, max: 10, value: 0})
+                    }
+                },
+                {
+                    name: "#",
+                    render: function (td, data, column) {
+                        var btn = document.createElement("button");
+                        btn.className = "btn btn-link";
+                        btn.innerHTML = "Remove";
+                        btn.onclick = function (evt) {
+                            grid.removeData(data);
+                        };
+                        td.appendChild(btn);
+                    }
+                }
+            ]);
+            grid.setData([{}]);
+
+            var appendInput = function (td, data, column, attributes) {
+                _append(function () {
+                    return document.createElement("input");
+                }, td, data, column, attributes);
+            };
+            var appendSelect = function (td, data, column, options, attributes) {
+                _append(function () {
+                    var select = document.createElement("select");
+                    options.forEach(function (item) {
+                        var op = document.createElement("option");
+                        op.innerHTML = item;
+                        select.appendChild(op);
+                    });
+                    return select;
+                }, td, data, column, attributes);
+            };
+            var _append = function (createFunction, td, data, column, attributes) {
+                var field = column.get("field");
+                var input = data["_" + field];
+                if (!input) {
+                    input = createFunction();
+                    if (attributes) {
+                        z.dom.setAttribute(input, attributes);
+                    }
+                    data["_" + field] = input;
+                    z.dom.event.onchange(input, function () {
+                        data.set(field, z.dom.getValue(input));
+                    });
+                }
+                z.dom.setValue(input, data.get(field));
+                td.appendChild(input);
+            };
+
+            z.dom.event.onclick("#addBtn", function () {
+                grid.addData({})
+            });
+            z.dom.event.onclick("#submitBtn", function () {
+                var dataArray = [];
+                grid.getDataArray().forEach(function (data) {
+                    dataArray.push({
+                        text: data.get("text") || "",
+                        checkbox: data.get("checkbox") || false,
+                        select: data.get("select") || "",
+                        date: data.get("date") || "",
+                        number: data.get("number") || 0
+                    });
+                });
+                z.widget.alert(JSON.stringify(dataArray, null, "  "));
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div style="padding: 0.2em">
+    <button id="addBtn" class="btn btn-success btn-sm">Add</button>
+    <button id="submitBtn" class="btn btn-primary btn-sm">Submit</button>
+</div>
+<div class="container" style="height: calc(100vh - 3em);"></div>
+</body>
+</html>

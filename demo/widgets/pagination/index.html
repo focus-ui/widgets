@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination</title>
+    <link rel="stylesheet" href="../_lib/highlight/googlecode.css">
+    <link rel="stylesheet" href="../_lib/demo-nav.css">
+    <script src="../_lib/highlight/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+
+    <script src="../_lib/nav_index_items.js"></script>
+    <script src="../_lib/demo-nav.js"></script>
+    <script>
+        var NavItems = [
+            {name: "Basic Usage", url: "./pagination_basic_usage.html"},
+            {name: "Pager Count", url: "./pagination_pager_count.html"},
+            {name: "Page Sizes", url: "./pagination_page_sizes.html"},
+            {name: "Layout", url: "./pagination_layout.html"},
+            {name: "Events", url: "./pagination_events.html"}
+        ];
+    </script>
+</head>
+<body>
+<nav class="demo-nav-index"></nav>
+<div class="demo-nav">
+    <div class="sidebar">
+        <div class="filter-form">
+            <input id="filterInput" placeholder="Filter..." autocomplete="off">
+        </div>
+        <div class="nav-tree"></div>
+    </div>
+    <div class="demo_content" style="display: none">
+        <div id="themeSelectDiv">
+            <label>
+                Theme: <select id="themeSelect"></select>
+            </label>
+        </div>
+        <div style="position: relative">
+            <h2 id="demoTitle"></h2>
+            <a id="openLink" target="_blank">Open in new window</a>
+        </div>
+        <div id="demoContentDiv">
+            <iframe id="demoIF"></iframe>
+        </div>
+        <div id="demoDescriptionDiv">
+            <h3>Description</h3>
+            <p id="demoDescription">
+            </p>
+        </div>
+        <div id="demoSourceDiv">
+            <h2>Source Code</h2>
+            <pre>
+            <code id="sourceCode" class="html">
+            </code>
+        </pre>
+        </div>
+    </div>
+    <div class="view_introduction"></div>
+</div>
+</body>
+</html>

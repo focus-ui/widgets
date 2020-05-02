@@ -1,0 +1,24 @@
+/*.view-root {
+  width: 38em;
+  padding-top: 1em;
+
+  .form-items {
+    height: calc(100vh - 5.5em);
+    overflow: auto;
+    border-bottom: 1px solid #cccccc;
+  }
+}*/
+.demo > .container {
+  width: 60% !important;
+  padding-top: 1em;
+  float: none;
+  margin: 0 auto;
+}
+.demo > .container .row {
+  margin-right: 0;
+  font-size: 92%;
+}
+.demo > .container .col-form-label {
+  text-align: right;
+  white-space: nowrap;
+}

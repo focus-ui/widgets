@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagination Events</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../_lib/event-log.js"></script>
+    <script>
+        z.ready(function () {
+            var pagination = z.widget.Pagination({
+                appendTo: ".container",
+                total: 2019,
+                page_index: 2,
+                page_sizes: [20, 50, 100, 200]
+            });
+            pagination.onPageChange(function (pageInfo) {
+                EventLogUtil.logEvent("onPageChange", pageInfo);
+            });
+            pagination.onRefresh(function (pageInfo) {
+                EventLogUtil.logEvent("onRefresh", pageInfo);
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half" style="padding: 1em"></div>
+<div class="setting">
+    <div id="eventTypeDiv">
+        <label>EventType: </label>
+        <label style="color: #3366cc">
+            <input id="onPageChange_check" type="checkbox" checked="">
+            onPageChange
+        </label>
+        <label style="color: #dc3912">
+            <input id="onRefresh_check" type="checkbox" checked="">
+            onRefresh
+        </label>
+    </div>
+    <pre id="eventPre" class="log-pre"></pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vertical Menu</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./MenuDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                mode: "vertical",
+                root_expand_icon_visible: true,
+                open_on_hover: true,
+                data: BrowserMenuArray
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container border" style="width: auto"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collapse Remove</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var collapse = z.widget.Collapse({
+                appendTo: ".container",
+                remove_icon_visible: true,
+                beforeRemove: function (data) {
+                    return window.confirm("remove " + data.get("name"));
+                }
+            });
+            collapse.setData([
+                {name: "Group1", content: "Group1 content"},
+                {name: "Group2", content: "Group2 content"},
+                {name: "Group3", content: "Group3 content"}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding"></div>
+</body>
+</html>

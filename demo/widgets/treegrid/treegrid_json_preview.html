@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid JSON Preview</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <link rel="stylesheet" href="./sheet.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./JSONParser.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <style>
+        #jsonTA {
+            resize: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var json = {"Name": "Lucy", "Type": "Employee", "Address": {"Country": "United States", "State": "California"}};
+            z.dom.setValue("#jsonTA", JSON.stringify(json, null, "  "));
+            var columns = [
+                {name: "Key", field: "key", sortable: true},
+                {name: "Value", field: "value"}
+            ];
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container>.right",
+                expand_on_click: true,
+                overflow: "scroll",
+                columns: columns,
+                data: JSONParser.parseJSON(z.dom.getValue("#jsonTA")),
+                getCellValue: function (data, columnData) {
+                    return getFilterMatchValue(treeGrid, data, columnData, z.dom.getValue("#filterInput").trim());
+                }
+            });
+            treeGrid.addVisibleFilter(function (data) {
+                var filterValue = z.dom.getValue("#filterInput").trim();
+                if (filterValue) {
+                    return columnContains(treeGrid, columns, data, filterValue.toLowerCase());
+                }
+                return true;
+            });
+
+            z.dom.event.on("#filterInput", "input", function () {
+                treeGrid.update();
+            });
+            z.dom.event.on("#filterInput", "keydown.Escape", function (evt) {
+                z.dom.setValue("#filterInput", "");
+                treeGrid.update();
+            });
+            var columnContains = function (grid, columns, data, filterText) {
+                var has = false;
+                columns.forEach(function (column) {
+                    if (column.filter !== false) {
+                        var field = column.field;
+                        if (field) {
+                            var prop = z.util.getObjectDeepValue(data.getProperties(false), field);
+                            if (prop && (prop + "").toLowerCase().indexOf(filterText) >= 0) {
+                                has = true;
+                                return false;
+                            }
+                        }
+                    }
+                });
+                return has;
+            };
+            var getFilterMatchValue = function (grid, data, columnData, filterValue) {
+                var prop = z.util.getObjectDeepValue(data.getProperties(false), columnData.get("field"));
+                if (filterValue && (z.util.isString(prop) || z.util.isNumber(prop))) {
+                    return (prop + "").replace(new RegExp(filterValue, 'gi'), function (val) {
+                        if (val != null) {
+                            return '<span class="filter-matched">' + val + "</span>";
+                        }
+                        return "";
+                    });
+                }
+                if (prop == null) {
+                    return "";
+                }
+                return prop;
+            };
+            z.dom.event.onclick("#parseBtn", function () {
+                treeGrid.setData(JSONParser.parseJSON(z.dom.getValue("#jsonTA")));
+            });
+            z.dom.event.onclick("#collapseBtn", function () {
+                treeGrid.collapseAll();
+            });
+            z.dom.event.onclick("#expandBtn", function () {
+                treeGrid.expandAll();
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container transfer">
+    <div class="left">
+        <textarea id="jsonTA"></textarea>
+    </div>
+    <div class="center">
+        <button id="parseBtn" class="btn btn-success">»</button>
+    </div>
+    <div class="right sheet">
+        <div class="filter-form">
+            <input id="filterInput" placeholder="Filter..." autofocus onfocus="this.select()" autocomplete="off">
+            <button id="expandBtn" title="Expand All"><i class="fa fa-plus-square-o"></i></button>
+            <button id="collapseBtn" title="Collapse All"><i class="fa fa-minus-square-o"></i></button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

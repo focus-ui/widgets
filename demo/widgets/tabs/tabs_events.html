@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs Events</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../_lib/event-log.js"></script>
+    <script>
+        z.ready(function () {
+            var tabs = z.widget.Tabs({
+                appendTo: ".container"
+            });
+            tabs.onDataClick(function (evt) {
+                EventLogUtil.logEvent("onDataClick", {"data": evt.data.get("name")});
+            });
+            tabs.onDataDblClick(function (evt) {
+                EventLogUtil.logEvent("onDataDblClick", {"data": evt.data.get("name")});
+            });
+            tabs.onSelectChange(function (evt) {
+                var info = {"type": evt.type};
+                var dataArray = evt.data;
+                if (dataArray.length > 0) {
+                    var dataNames = [];
+                    dataArray.forEach(function (d) {
+                        dataNames.push(d.get("name"));
+                    });
+                    info.data = dataNames.join(",");
+                }
+                EventLogUtil.logEvent("onSelectChange", info);
+            });
+            tabs.onSelectBatchChange(function () {
+                var last = tabs.getLastSelected();
+                var info = {};
+                if (last) {
+                    info.lastSelect = last.get("name");
+                } else {
+                    info.lastSelect = "none";
+                }
+                EventLogUtil.logEvent("onSelectBatchChange", info);
+            });
+            tabs.setData([
+                {name: "Tab1", content: "Tab1 content"},
+                {name: "Tab2", content: "Tab2 content"},
+                {name: "Tab(unselectable)", "selectable": false},
+                {name: "Tab(disabled)", "disabled": true}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div class="setting">
+    <div id="eventTypeDiv">
+        <label>EventType: </label>
+        <label style="color: #3366cc">
+            <input id="onDataClick_check" type="checkbox" checked>
+            onDataClick
+        </label>
+        <label style="color: #dc3912">
+            <input id="onDataDblClick_check" type="checkbox" checked>
+            onDataDblClick
+        </label>
+        <label style="color:#109618">
+            <input id="onSelectChange_check" type="checkbox">
+            onSelectChange
+        </label>
+        <label style="color:#990099">
+            <input id="onSelectBatchChange_check" type="checkbox" checked>
+            onSelectBatchChange(Suggest)
+        </label>
+    </div>
+    <pre id="eventPre" class="log-pre"></pre>
+</div>
+</body>
+</html>

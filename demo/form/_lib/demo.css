@@ -1,0 +1,174 @@
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: #efefef;
+}
+::-webkit-scrollbar-track:hover {
+  background-color: #e0e0e0;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #bcbcbc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #939393;
+}
+@-moz-document url-prefix() {
+  * {
+    scrollbar-width: thin;
+  }
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: arial, sans-serif;
+}
+input,
+select {
+  box-sizing: border-box;
+  padding: .5em .6em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  vertical-align: middle;
+  border-radius: 4px;
+  font: inherit;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+.demo > .container {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  float: left;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 0;
+}
+.demo > .container.border {
+  border: 1px solid #ccc;
+}
+.demo > .container.auto-height {
+  height: auto;
+}
+.demo > .container:only-child {
+  width: 100%;
+}
+.demo > .container.small {
+  width: 260px;
+  border-right: 1px solid #ccc;
+  font-size: 100%;
+}
+.demo > .container.half {
+  width: 50%;
+}
+.demo > .container.padding {
+  padding: 2em;
+}
+.demo > .container.h-buttons > button,
+.demo > .container.v-buttons > button {
+  width: 8em;
+  margin-bottom: 1em;
+}
+.demo > .container.v-buttons {
+  display: flex;
+  flex-direction: column;
+}
+.demo > .container .filter-form {
+  display: flex;
+  padding: 0.1em;
+  /*input:only-child {
+        width: 100%;
+      }*/
+}
+.demo > .container .filter-form input:first-child {
+  flex-grow: 1;
+}
+.demo > .container .filter-form button {
+  font-size: 1.3em;
+  border: none;
+  padding: 0.3em 0.2em;
+  margin: 0.1em;
+  background: #fff;
+  outline: none;
+  color: #666;
+}
+.demo > .container .filter-form button:hover {
+  color: #000;
+  background-color: #efefef;
+}
+.demo > .container .filter-form button:active {
+  background-color: #ccc;
+}
+.demo > .container .filter-form + .z-widget {
+  height: calc(100vh - 3em);
+  margin-top: 0.1em;
+}
+.demo > .container.transfer {
+  display: flex;
+}
+.demo > .container.transfer > .left,
+.demo > .container.transfer > .right {
+  flex: 1;
+}
+.demo > .container.transfer > .center {
+  padding: 1em;
+  border: 1px solid #eee;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.demo > .setting {
+  max-height: 100%;
+  margin-left: 52%;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 0.3em;
+}
+.demo > .setting input,
+.demo > .setting select,
+.demo > .setting button {
+  margin: 0.3em 0.1em;
+}
+.demo > .setting .log-pre {
+  height: calc(100vh - 6em);
+  overflow: auto;
+  border: 1px solid #eee;
+}
+.demo > .setting .log-pre:empty:before {
+  content: "Right click to clear the log";
+  color: #CCCCCC;
+  display: inline-block;
+  padding: 0.3em;
+}
+.demo .container.small + .setting {
+  margin-left: 270px;
+}
+.demo .container.half + .setting {
+  margin-left: 51%;
+}
+.demo demo-desc {
+  display: none;
+}
+.zw-modal .container-fluid .row {
+  margin-right: 0;
+  font-size: 92%;
+}
+.zw-modal .container-fluid .col-form-label {
+  text-align: right;
+  white-space: nowrap;
+}
+.zw-modal .footer button {
+  margin-left: .3em;
+  min-width: 5em;
+}

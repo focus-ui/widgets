@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Scroll Load</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        tr:hover {
+            background-color: #f8f9fa !important;
+        }
+        td {
+            border-bottom-color: #bbb !important;
+        }
+        .nested_td {
+            padding: 0 !important;
+        }
+        .nested_td tr:hover {
+            background-color: transparent !important;
+        }
+        .nested_td td {
+            border: none !important;
+            border-bottom: 1px solid #e6e6e6 !important;
+        }
+        .nested_td tr:last-child td {
+            border-bottom: none !important;
+        }
+        .enMoney {
+            text-align: right;
+        }
+        .enMoney::before {
+            content: "$";
+        }
+        .number {
+            text-align: right !important;
+        }
+    </style>
+    <script>
+        //create test order
+        var ProductMap = {
+            1: {name: "Product A", unit_price: 3},
+            2: {name: "Product B", unit_price: 6},
+            3: {name: "Product C", unit_price: 8},
+            4: {name: "Product D", unit_price: 10},
+            5: {name: "Product E", unit_price: 18},
+            6: {name: "Product F", unit_price: 20}
+        };
+        var createOrderItem = function (item) {
+            var order = item.order;
+            var productIds = item.product_ids;
+            var quantities = item.quantities;
+            var productNames = [];
+            var unit_prices = [];
+            var product_prices = [];
+            var total_price = 0;
+            productIds.forEach(function (id, index) {
+                var product = ProductMap[id];
+                productNames.push(product.name);
+                unit_prices.push(product.unit_price);
+                product_prices.push(product.unit_price * quantities[index]);
+            });
+            product_prices.forEach(function (price) {
+                total_price += price;
+            });
+
+            return {
+                order: order,
+                product_ids: productIds,
+                product_names: productNames,
+                quantities: quantities,
+                unit_prices: unit_prices,
+                product_prices: product_prices,
+                total_price: total_price
+            };
+        };
+        var getUniqueArray = function (count, max) {
+            var map = {};
+            var arr = [];
+            var item = 1 + Math.floor(Math.random() * max);
+            while (arr.length < count) {
+                while (map[item] === true) {
+                    item = 1 + Math.floor(Math.random() * max);
+                }
+                map[item] = true;
+                arr.push(item);
+            }
+            return arr;
+        };
+        var isLoading = false;
+        var loadMoreOrders = function (grid, count) {
+            if (isLoading === true) {
+                return;
+            }
+            isLoading = true;
+            z.widget.loading("loading");
+            z.util.callLater(function () {
+                var moreArray = [];
+                var start = grid.getDataSize();
+                count = 1 + count;
+                for (var i = 1; i < count; i++) {
+                    var productCount = 1 + Math.floor(Math.random() * 3);
+                    var productIds = this.getUniqueArray(productCount, 6);
+                    productIds.sort();
+                    var quantities = this.getUniqueArray(productCount, 10);
+                    moreArray.push(createOrderItem({
+                        order: (start | 0) + i,
+                        product_ids: productIds,
+                        quantities: quantities
+                    }));
+                }
+                grid.addData(moreArray);
+                z.widget.loading(false);//hide
+                isLoading = false;
+            }, 200);
+        };
+        var createNestedGrid = function (td, datas, cls) {
+            if (datas && datas.length > 0) {
+                var table = z.dom.create("table");
+                datas.forEach(function (item) {
+                    var tr = z.dom.create("tr");
+                    if (cls) {
+                        tr.innerHTML = "<td class='" + cls + "'>" + item + "</td>";
+                    } else {
+                        tr.innerHTML = "<td>" + item + "</td>";
+                    }
+                    table.appendChild(tr);
+                });
+                td.appendChild(table);
+                z.dom.addClass(td, "nested_td");
+            }
+        };
+
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll"
+            });
+
+            var gridBody = z.dom.query(".body", grid.getRoot());//scroll body div
+            z.dom.event.on(gridBody, "scroll", function (evt) {
+                evt.stopPropagation();
+                if (gridBody.scrollTop + gridBody.clientHeight > gridBody.scrollHeight - 100) {
+                    loadMoreOrders(grid, 10);//load more
+                }
+            });
+            grid.setColumns([
+                {
+                    name: "Order ID", field: "order",
+                    render: function (td, data) {
+                        z.dom.addClass(td, "number");
+                        td.innerHTML = data.get("order");
+                    }
+                },
+                {
+                    name: "Product", field: "product_names",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("product_names"));
+                    }
+                },
+                {
+                    name: "Quantity", field: "quantities",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("quantities"), "number");
+                    }
+                },
+                {
+                    name: "Unit Price", field: "unit_prices",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("unit_prices"), "enMoney");
+                    }
+                },
+                {
+                    name: "Product Price", field: "product_prices",
+                    render: function (td, data) {
+                        createNestedGrid(td, data.get("product_prices"), "enMoney");
+                    }
+                },
+                {
+                    name: "Total Price", field: "total_price",
+                    render: function (td, data) {
+                        z.dom.addClass(td, "enMoney");
+                        td.innerHTML = data.get("total_price");
+                    }
+                }
+            ]);
+            loadMoreOrders(grid, 20);//init
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Column Visible</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        #menuDiv {
+            position: absolute;
+            right: 0.36em;
+            top: 2px;
+        }
+        .z-menu .items > .item > .node {
+            padding: 0.4em 0;
+            color: #007bff;
+        }
+        .z-menu .items > .item > .node:hover, .z-menu .items > .item.expanded>.node {
+            color: #0056b3;
+        }
+    </style>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            //grid
+            var columns = [
+                {name: "Team", field: "team", width: "200"},
+                {name: "WINS", field: "wins", width: "100"},
+                {name: "LOSSES", field: "losses", width: "100"},
+                {name: "PCT", field: "pct", width: "100", attributes: {title: "Winning Percentage"}},
+                {name: "GB", field: "gb", width: "100", attributes: {title: "Games Back"}},
+                {
+                    name: "Record",
+                    children: [
+                        {name: "HOME", field: "home", width: "100", attributes: {title: "Home Record"}},
+                        {name: "AWAY", field: "away", width: "100", attributes: {title: "Away Record"}},
+                        {name: "DIV", field: "div", width: "100", attributes: {title: "Division Record"}},
+                        {name: "CONF", field: "conf", width: "100", attributes: {title: "Conference Record"}}
+                    ]
+                },
+                {
+                    name: "Points",
+                    children: [
+                        {name: "PPG", field: "ppg", width: "100", attributes: {title: "Points Per Game"}},
+                        {name: "OPP PPG", field: "opp_ppg", width: "100", attributes: {title: "Opponent Points Per Game"}},
+                        {name: "DIFF", field: "diff", width: "100", attributes: {title: "Average Point Differential"}}
+                    ]
+                }
+            ];
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                columns: columns,
+                data: NBAArray
+            });
+            //menu
+            var createMenuColumnArr = function (menuArr, columns) {
+                columns.forEach(function (colItem, index) {
+                    var menuItem = z.util.mergeObject({
+                        _column: grid.findColumn("name", colItem.name),
+                        checkbox_visible: colItem.field !== "team"
+                    }, colItem);
+                    menuArr.push(menuItem);
+                    if (colItem.children) {
+                        menuItem.children = createMenuColumnArr([], colItem.children);
+                    }
+                });
+                return menuArr;
+            };
+            var menu = z.widget.Menu({
+                appendTo: "#menuDiv",
+                direction: "down_left",
+                three_states_check: true,
+                close_on_click: false,
+                data: [{
+                    name: "<i class='fa fa-ellipsis-v'></i>",//minimized menu
+                    children: createMenuColumnArr([], columns)
+                }]
+            });
+            menu.checkAll();
+            //sync grid column visible
+            menu.onCheckChange(function (evt) {
+                var allArray = menu.getDataArray();
+                var checkedArray = menu.getChecked();
+                allArray.forEach(function (data) {
+                    if (!data.hasChildren()) {
+                        data.get("_column").set("visible", checkedArray.indexOf(data) > -1);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+<div id="menuDiv"></div>
+</body>
+</html>

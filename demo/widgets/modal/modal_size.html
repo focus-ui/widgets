@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Size</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+       .container> button{
+            width: 10em!important;
+        }
+        .zw-modal.custom{
+            max-width: 60em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.modal.init();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button class="btn btn-primary btn-sm" data-toggle="zw-modal" data-content="element:#dfDiv">Default(36em)</button>
+    <button class="btn btn-secondary btn-sm" data-toggle="zw-modal" data-content="element:#smDiv">Small(20em)</button>
+    <button class="btn btn-success btn-sm" data-toggle="zw-modal" data-content="element:#lgDiv">Large(50em)</button>
+    <button class="btn btn-danger btn-sm" data-toggle="zw-modal" data-content="element:#xlDiv">Extra Large(70em)</button>
+    <button class="btn btn-outline-info btn-sm" data-toggle="zw-modal" data-content="element:#customDiv">Custom(60em)</button>
+
+    <div id="dfDiv" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">Default</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                ...
+            </div>
+        </div>
+    </div>
+    <div id="smDiv" class="zw-modal modal-sm">
+        <div class="content">
+            <div class="header">
+                <span class="title">Small</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                ...
+            </div>
+        </div>
+    </div>
+    <div id="lgDiv" class="zw-modal modal-lg">
+        <div class="content">
+            <div class="header">
+                <span class="title">Large</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                ...
+            </div>
+        </div>
+    </div>
+    <div id="xlDiv" class="zw-modal modal-xl">
+        <div class="content">
+            <div class="header">
+                <span class="title">Extra Large</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                ...
+            </div>
+        </div>
+    </div>
+    <div id="customDiv" class="zw-modal custom">
+        <div class="content">
+            <div class="header">
+                <span class="title">Custom</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

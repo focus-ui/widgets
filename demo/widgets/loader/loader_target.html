@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loader Target</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.dom.event.onclick("#showBtn", function () {
+                z.widget.loading("loading", "#formDiv",{
+                    open_animation: "z-modal-open-animation",
+                    close_animation: "z-modal-close-animation"
+                });
+            });
+            z.dom.event.onclick("#hideBtn", function () {
+                z.widget.loading(false, "#formDiv");
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half padding">
+    <button id="showBtn" class="btn btn-success">Show</button>
+    <button id="hideBtn" class="btn btn-secondary">Hide</button>
+    <div id="formDiv" class="container-fluid" style="border: 1px solid #efefef;margin: 1em 0">
+        <div class="row form-group">
+            <label class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-10">
+                <input id="name" type="text" placeholder="Username">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input id="password" type="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input id="email" type="email" placeholder="Email">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input type="checkbox"> I've read the terms and conditions
+            </div>
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

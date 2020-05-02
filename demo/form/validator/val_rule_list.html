@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validator Rule List</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/form.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        z.ready(function () {
+            var validator = z.form.Validator("#formDiv");
+            validator.validate();
+            z.dom.event.onclick("#valBtn", function () {
+                var errArr = validator.validate();
+                console.log(errArr.length > 0 ? "error count:" + errArr.length : "success");
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div id="formDiv" class="container container-fluid">
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">required</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="required">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">integer</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="integer">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">numeric</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="numeric">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">alphanumeric</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="alphanumeric">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">alphanumeric_dash</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="alphanumeric_dash">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">alphanumeric_space</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="alphanumeric_space">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">email</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="email">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">ipv4</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="ipv4">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">minlength[6]</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="minlength[6]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">maxlength[6]</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="maxlength[6]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">greaterthan[12]</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="greaterthan[12]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">lessthan[12]</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="lessthan[12]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">equal[10]</label>
+        <div class="col-sm-8">
+            <input class="form-control" v-rules="equal[10]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">match[last]</label>
+        <div class="col-sm-4">
+            <input class="form-control" name="last" value="123">
+        </div>
+        <div class="col-sm-4">
+            <input class="form-control" v-rules="match[last]">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"></label>
+        <div class="col-sm-8">
+            <button id="valBtn" class="btn btn-primary">Validate</button>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

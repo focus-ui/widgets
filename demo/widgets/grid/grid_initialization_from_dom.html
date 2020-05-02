@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Initialization From Dom</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.widget.Grid(z.dom.query("#gridTable"));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container">
+    <table id="gridTable" sortable="true">
+        <tr>
+            <th field="index">#</th>
+            <th field="language">Language</th>
+            <th field="ratings">Ratings</th>
+            <th field="change">Change</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Java</td>
+            <td>15.93%</td>
+            <td>2.66%</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>C</td>
+            <td>14.28%</td>
+            <td>4.12%</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Python</td>
+            <td>8.38%</td>
+            <td>4.60%</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

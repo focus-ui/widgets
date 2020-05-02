@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Grid</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../grid/GridDemoData.js"></script>
+    <style>
+        .zw-modal > .content > .body {
+            padding: 0;
+        }
+    </style>
+    <script>
+        var grid;
+
+        function initGrid() {
+            grid = z.widget.Grid({
+                hoverable: true
+            });
+            grid.setColumns([
+                {type: "check"},
+                {name: "#", field: "index"},
+                {name: "Language", field: "language"},
+                {name: "Ratings", field: "ratings"},
+                {name: "Change", field: "change"}
+            ]);
+            grid.setData(LanguageArray.slice(0, 10));
+            grid.appendTo("#gridDiv");
+        }
+
+        z.ready(function () {
+            z.dom.event.onclick("#openBtn", function () {
+                if (!grid) {//init
+                    initGrid();
+                }
+                grid.clearCheck();
+                z.widget.modal("#modalDiv", {
+                    open_animation: "z-animation-zoomIn",
+                    close_animation: "z-animation-zoomOut"
+                });//open
+            });
+            z.dom.event.onclick("#okBtn", function () {
+                var checkedArray = grid.getChecked();
+                var items = [];
+                checkedArray.forEach(function (item) {
+                    items.push(item.get("language"));
+                });
+                if (items.length === 0) {
+                    alert("Please select data");
+                    return;
+                }
+                alert("Checked items:\n" + items.join(", "));
+                z.widget.modal("#modalDiv", false);//close
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="openBtn" class="btn btn-success">open</button>
+    <div id="modalDiv" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">Grid</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div id="gridDiv" class="body"></div>
+            <div class="footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" id="okBtn" class="btn btn-primary btn-sm">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

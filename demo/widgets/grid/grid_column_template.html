@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Column Template</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <link rel="stylesheet" href="./grid_render.css">
+    <script src="./GridDemoData.js"></script>
+    <script>
+        var handleRemove = function (name) {
+            if (window.confirm("Remove " + name + "?")) {
+                grid.removeData({name: name});
+            }
+        };
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container"
+            });
+            grid.setColumns([
+                {name: "Text", field: "name"},
+                {name: "Checkbox", template: z.dom.query("#checkboxTemplate").innerHTML},
+                {name: "Img", template: z.dom.query("#imgTemplate").innerHTML},
+                {name: "Color", template: z.dom.query("#colorTemplate").innerHTML},
+                {name: "Progress", template: z.dom.query("#progressTemplate").innerHTML},
+                {name: "#", template: z.dom.query("#operateTemplate").innerHTML}
+            ]);
+            grid.setData([
+                {name: "text1", boolean: true, img: "../_icons/social_blue/facebook_square.png", value: 20, progress: 88},
+                {name: "text2", boolean: false, img: "../_icons/social_blue/github_square.png", value: 70, progress: 66},
+                {name: "text3", boolean: true, img: "../_icons/social_blue/twitter_square.png", value: 90, progress: 22}
+            ]);
+            window.grid = grid;
+        });
+    </script>
+</head>
+<script type="text/html" id="checkboxTemplate">
+    <input type="checkbox" disabled <%boolean===true?"checked":""%> >
+</script>
+<script type="text/html" id="imgTemplate">
+    <%if(img){%>
+    <img src=<%img%>>
+    <%}%>
+</script>
+<script type="text/html" id="colorTemplate">
+    <span class="color <%value>80?'danger':(value>60?'warning':'success')%>"><%value%></span>
+</script>
+<script type="text/html" id="progressTemplate">
+    <div class="progress">
+        <div class="progress-bar <%progress>80?'progress-bar-danger':(progress>60?'progress-bar-warning':'progress-bar-success')%>" style="width:<%progress%>%">
+            <%progress%>%
+        </div>
+    </div>
+</script>
+<script type="text/html" id="operateTemplate">
+    <button onclick="handleRemove('<%name%>')">Remove</button>
+</script>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

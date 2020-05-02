@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Custom Render</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .z-tree .node {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .z-tree .node .in {
+            width: 100%;
+            margin-right: -1.4em;
+        }
+        .operate {
+            position: absolute;
+            right: 0;
+            display: none;
+        }
+        .operate a {
+            margin-right: 4px;
+            cursor: pointer;
+        }
+        .z-tree .node:hover .operate {
+            display: block;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var handleDelete = function (data) {
+                z.widget.confirm("Delete " + data.get("name") + "?", "Tips", function (result) {
+                    if (result) {
+                        tree.removeData(data);
+                    }
+                })
+            };
+            var handleEdit = function (data) {
+                z.widget.prompt("Please input new name", "Edit", function (result) {
+                    if (result) {
+                        data.set("name", result);
+                    }
+                }, {value: data.get("name")});
+            };
+            var createOperateA = function (operateDiv, data, cls, handleClick) {
+                var operateA = z.dom.create("a", cls);
+                z.dom.event.onclick(operateA, function (evt) {
+                    evt.stopPropagation();
+                    handleClick(data);
+                });
+                operateDiv.appendChild(operateA);
+            };
+            var tree = z.widget.Tree({
+                appendTo: ".container",
+                render: function (data, inWrapper, renderer) {
+                    var operate = renderer._operate;
+                    if (!operate) {
+                        operate = z.dom.create("div", "operate");
+                        renderer._operate = operate;
+                        createOperateA(operate, data, "fa fa-trash-o", handleDelete);
+                        createOperateA(operate, data, "fa fa-edit", handleEdit);
+                    }
+                    inWrapper.appendChild(operate);
+                },
+                data: [
+                    {
+                        name: "This PC",
+                        children: [
+                            {name: "Documents"},
+                            {name: "Downloads"},
+                            {
+                                name: "Windows(C:)",
+                                children: [
+                                    {name: "Program Files"},
+                                    {name: "Users"},
+                                    {name: "Windows"}
+                                ]
+                            },
+                            {
+                                name: "Work(D:)",
+                                children: [
+                                    {name: "Work"},
+                                    {name: "Study"}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            });
+            tree.expandAll();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

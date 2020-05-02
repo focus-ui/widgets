@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView API</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView({
+                appendTo: ".container",
+                checkbox_visible: true,
+                data: [
+                    {name: "Item1"},
+                    {name: "Item2"},
+                    {name: "Item3"},
+                    {name: "Item4"},
+                    {name: "Item5"},
+                    {name: "Item6"}
+                ]
+            });
+
+            //Data
+            z.dom.event.onclick("#addBtn", function () {
+                var item = {name: z.dom.getValue("#nameInput"), timestamp: Date.now()};
+                listView.addData(item);//addData(item/array)
+                listView.select(item);
+            });
+            z.dom.event.onclick("#addTopBtn", function () {
+                var item = {name: z.dom.getValue("#nameInput"), timestamp: Date.now()};
+                listView.addData(item, 0);//addData(item/array,index)
+                listView.select(item);
+            });
+            z.dom.event.onclick("#removeBtn", function () {
+                listView.removeData({name: z.dom.getValue("#nameInput")});
+            });
+            z.dom.event.onclick("#removeSelectBtn", function () {
+                var checked = listView.getChecked();
+                if (checked.length > 0) {//if checked
+                    listView.removeData(checked);
+                } else {
+                    listView.removeData(listView.getLastSelected());//selected
+                }
+            });
+            z.dom.event.onclick("#clearBtn", function () {
+                listView.clearData();//clearData()
+            });
+            z.dom.event.onclick("#getDataBtn", function () {
+                var selected = listView.getDataArray();//getSelected();
+                var nameArray = [];
+                selected.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getDataArray", duration: 200000})
+            });
+            //Select
+            z.dom.event.onclick("#selectBtn", function () {
+                listView.select({name: z.dom.getValue("#selectNameInput")});//select(item/array)
+            });
+            z.dom.event.onclick("#unselectBtn", function () {
+                listView.unselect({name: z.dom.getValue("#selectNameInput")});//unselect(item/array)
+            });
+            z.dom.event.onclick("#selectAppendBtn", function () {
+                listView.select({name: z.dom.getValue("#selectNameInput")}, true);//select(item/array,true)
+            });
+            z.dom.event.onclick("#selectAllBtn", function () {
+                listView.selectAll();//selectAll()
+            });
+            z.dom.event.onclick("#clearSelectBtn", function () {
+                listView.clearSelect();//clearSelect()
+            });
+            z.dom.event.onclick("#getSelectedBtn", function () {
+                var selected = listView.getSelected();//getSelected();
+                var nameArray = [];
+                selected.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getSelected", duration: 2000})
+            });
+            z.dom.event.onclick("#getLastSelectedBtn", function () {
+                var lastSelected = listView.getLastSelected();//getLastSelected()
+                z.widget.notify(lastSelected ? lastSelected.get("name") : "", {title: "getLastSelected", duration: 2000})
+            });
+            //Check
+            z.dom.event.onclick("#checkBtn", function () {
+                listView.check({name: z.dom.getValue("#checkNameInput")});//check(item/array)
+            });
+            z.dom.event.onclick("#uncheckBtn", function () {
+                listView.uncheck({name: z.dom.getValue("#checkNameInput")});//uncheck(item/array)
+            });
+            z.dom.event.onclick("#checkAppendBtn", function () {
+                listView.check({name: z.dom.getValue("#checkNameInput")}, true);//check(item/array,true)
+            });
+            z.dom.event.onclick("#checkAllBtn", function () {
+                listView.checkAll();//checkAll()
+            });
+            z.dom.event.onclick("#clearCheckBtn", function () {
+                listView.clearCheck();//clearCheck()
+            });
+            z.dom.event.onclick("#getCheckedBtn", function () {
+                var checked = listView.getChecked();//getChecked()
+                var nameArray = [];
+                checked.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getChecked", duration: 2000})
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+<div class="setting">
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Data</h5>
+            <input id="nameInput" value="Item">
+            <button id="addBtn" class="btn btn-secondary btn-sm" title="view.addData(item/array)">addData</button>
+            <button id="addTopBtn" class="btn btn-secondary btn-sm" title="view.addData(item/array,0)">addData(top)</button>
+            <button id="removeBtn" class="btn btn-secondary btn-sm" title="view.removeData(item/array)">removeData</button>
+            <button id="removeSelectBtn" class="btn btn-secondary btn-sm" title="view.removeData(item/array)">removeData(select)</button>
+            <button id="clearBtn" class="btn btn-secondary btn-sm" title="view.clearData()">clearData</button>
+            <button id="getDataBtn" class="btn btn-success btn-sm" title="view.getDataArray()">getDataArray</button>
+        </div>
+    </div>
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Select</h5>
+            <input id="selectNameInput" value="Item2">
+            <button id="selectBtn" class="btn btn-secondary btn-sm" title="view.select(item/array)">select</button>
+            <button id="unselectBtn" class="btn btn-secondary btn-sm" title="view.unselect(item/array)">unselect</button>
+            <button id="selectAppendBtn" class="btn btn-secondary btn-sm" title="view.select(item/array,true)">select(append)</button>
+            <button id="selectAllBtn" class="btn btn-secondary btn-sm" title="view.selectAll()">selectAll</button>
+            <button id="clearSelectBtn" class="btn btn-secondary btn-sm" title="view.clearSelect()">clearSelect</button>
+            <button id="getSelectedBtn" class="btn btn-secondary btn-sm" title="view.getSelected()">getSelected</button>
+            <button id="getLastSelectedBtn" class="btn btn-success btn-sm" title="view.getLastSelected()">getLastSelected</button>
+        </div>
+    </div>
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Check</h5>
+            <input id="checkNameInput" value="Item3">
+            <button id="checkBtn" class="btn btn-secondary btn-sm" title="view.check(item/array)">check</button>
+            <button id="uncheckBtn" class="btn btn-secondary btn-sm" title="view.uncheck(item/array)">uncheck</button>
+            <button id="checkAppendBtn" class="btn btn-secondary btn-sm" title="view.check(item/array,true)">check(append)</button>
+            <button id="checkAllBtn" class="btn btn-secondary btn-sm" title="view.checkAll()">checkAll</button>
+            <button id="clearCheckBtn" class="btn btn-secondary btn-sm" title="view.clearCheck()">clearCheck</button>
+            <button id="getCheckedBtn" class="btn btn-success btn-sm" title="view.getChecked()">getChecked</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

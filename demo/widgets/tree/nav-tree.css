@@ -1,0 +1,48 @@
+.nav-tree .z-tree .items > .item {
+  padding-left: 0;
+}
+.nav-tree .z-tree .item {
+  margin-left: 0;
+  padding-left: 0.6em;
+}
+.nav-tree .z-tree .item .node {
+  cursor: pointer;
+  display: block;
+}
+.nav-tree .z-tree .item .node .in {
+  cursor: pointer;
+  background-color: transparent;
+}
+.nav-tree .z-tree .item .node .expand {
+  float: right;
+  padding: 0.3em;
+}
+.nav-tree .z-tree {
+  background-color: #222d32;
+}
+.nav-tree .z-tree .items > .item {
+  color: #b8c7ce;
+}
+.nav-tree .z-tree .items > .item:hover,
+.nav-tree .z-tree .items > .item.selected {
+  background: #1e282c;
+}
+.nav-tree .z-tree .item {
+  color: #8aa4af;
+}
+.nav-tree .z-tree .item.expanded {
+  color: #fafafa;
+  background: #1e282c;
+}
+.nav-tree .z-tree .item:hover {
+  color: #fff;
+}
+.nav-tree .z-tree .item .children {
+  background-color: #2c3b41;
+}
+.nav-tree .fa {
+  margin-right: 0.5em;
+}
+.nav-tree .children .fa {
+  font-size: smaller;
+}

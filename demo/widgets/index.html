@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZWidgets Demos</title>
+    <link rel="stylesheet" href="./_lib/demo-list.css">
+
+    <script src="./_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        var Demo = {
+            items: [
+                {
+                    name: "DATA MANAGEMENT", children: [
+                        {name: "ListView", url: "./listview/index.html",change:"new"},
+                        {name: "Tree", url: "./tree/index.html", change: "new"},
+                        {name: "Grid", url: "./grid/index.html"},
+                        {name: "TreeGrid", url: "./treegrid/index.html"}
+                    ]
+                },
+                {
+                    name: "NAVIGATION", children: [
+                        {name: "Tabs", url: "./tabs/index.html"},
+                        {name: "Menu", url: "./menu/index.html"}
+                    ]
+                },
+                {
+                    name: "POPUP", children: [
+                        {name: "Tooltip", url: "./tooltip/index.html"},
+                        {name: "Popover", url: "./popover/index.html"},
+                        {name: "Notification", url: "./notification/index.html"},
+                        {name: "Loader", url: "./loader/index.html"},
+                        {name: "Modal", url: "./modal/index.html", change: "new"},
+                        {name: "MessageBox", url: "./msgbox/index.html"}
+                    ]
+                },
+                {
+                    name: "OTHERS", children: [
+                        {name: "Collapse", url: "./collapse/index.html"},
+                        {name: "Pagination", url: "./pagination/index.html"}
+                    ]
+                },
+                {
+                    name: "Form", children: [
+                        {name: "Form", url: "../form/form/index.html", change: "new"},
+                        {name: "Validator", url: "../form/validator/index.html",change:"update"}
+                    ]
+                }
+            ],
+            init: function () {
+                var listDiv = z.dom.query(".demo-list");
+                Demo.items.forEach(function (item) {
+                    if (item.children) {
+                        var group = z.dom.create("div", "group");
+                        var groupTitle = z.dom.create("div", "title");
+                        groupTitle.innerHTML = item.name;
+                        group.appendChild(groupTitle);
+                        var groupItems = z.dom.create("div", "items");
+                        item.children.forEach(function (childItem) {
+                            groupItems.appendChild(Demo.createItem(childItem));
+                        });
+                        group.appendChild(groupItems);
+                        listDiv.appendChild(group);
+                    } else {
+                        listDiv.appendChild(Demo.createItem(item));
+                    }
+                });
+            },
+            createItem: function (item) {
+                var a = z.dom.create("a");
+                a.setAttribute("href", item.url);
+                a.setAttribute("target", "_blank");
+                a.innerHTML = (item.icon || "") + item.name;
+                var span = z.dom.create("span", "item");
+                span.appendChild(a);
+                var change = item.change;
+                if (change) {
+                    var cSpan = z.dom.create("span", change);
+                    cSpan.innerHTML = change;
+                    span.appendChild(cSpan);
+                }
+                return span;
+            }
+        };
+        z.ready(function () {
+            Demo.init();
+        });
+    </script>
+</head>
+<body>
+<div class="page-body">
+    <div class="demo-list"></div>
+</div>
+</body>
+</html>

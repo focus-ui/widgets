@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Navigation</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <link rel="stylesheet" href="./nav-tree.css">
+    <script>
+        z.ready(function () {
+            var trid = z.widget.Tree({
+                appendTo: ".container",
+                expand_on_click: true,
+                isSelectable: function (data) {
+                    return !data.hasChildren();
+                }
+            });
+            trid.setData([
+                {name: "<i class='fa fa-th'></i>Widgets"},
+                {
+                    name: "<i class='fa fa-dashboard'></i>Dashboard",
+                    children: [
+                        {name: "<i class='fa fa-circle-o'></i>Dashboard v1"},
+                        {name: "<i class='fa fa-circle-o'></i>Dashboard v2"}
+                    ]
+                },
+                {
+                    name: "<i class='fa fa-pie-chart'></i>Charts",
+                    children: [
+                        {name: "<i class='fa fa-circle-o'></i>Line"},
+                        {name: "<i class='fa fa-circle-o'></i>Bar"}
+                    ]
+                },
+                {
+                    name: "<i class='fa fa-table'></i>Tables",
+                    children: [
+                        {name: "<i class='fa fa-circle-o'></i>Simple tables"},
+                        {name: "<i class='fa fa-circle-o'></i>Data tables"}
+                    ]
+                },
+                {
+                    name: "<i class='fa fa-edit'></i>Forms",
+                    children: [
+                        {name: "<i class='fa fa-circle-o'></i>General Elements"},
+                        {name: "<i class='fa fa-circle-o'></i>Advanced Elements"},
+                        {name: "<i class='fa fa-circle-o'></i>Editors"}
+                    ]
+                },
+                {name: "<i class='fa fa-calendar'></i>Calendar"},
+                {name: "<i class='fa fa-envelope'></i>Mailbox"}
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small nav-tree"></div>
+</body>
+</html>

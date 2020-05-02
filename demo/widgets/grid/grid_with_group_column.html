@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid With Group Column</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                data: NBAArray
+            });
+            grid.setColumns([
+                {name: "", field: "team", width: "200", fixed: true},//fixed:true/"left"/"right"
+                {name: "WINS", field: "wins", width: "100"},
+                {name: "LOSSES", field: "losses", width: "100"},
+                {name: "PCT", field: "pct", width: "100", attributes: {title: "Winning Percentage"}},
+                {name: "GB", field: "gb", width: "100", attributes: {title: "Games Back"}},
+                {
+                    name: "Record",
+                    children: [
+                        {name: "HOME", field: "home", width: "100", attributes: {title: "Home Record"}},
+                        {name: "AWAY", field: "away", width: "100", attributes: {title: "Away Record"}},
+                        {name: "DIV", field: "div", width: "100", attributes: {title: "Division Record"}},
+                        {name: "CONF", field: "conf", width: "100", attributes: {title: "Conference Record"}}
+                    ]
+                },
+                {
+                    name: "Points",
+                    children: [
+                        {name: "PPG", field: "ppg", width: "100", attributes: {title: "Points Per Game"}},
+                        {name: "OPP PPG", field: "opp_ppg", width: "100", attributes: {title: "Opponent Points Per Game"}},
+                        {name: "DIFF", field: "diff", width: "100", attributes: {title: "Average Point Differential"}}
+                    ]
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

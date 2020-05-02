@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Filter</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .filter-matched {
+            background-color: #ffff00;
+        }
+    </style>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var columns = [
+                {name: "Product", field: "product_name"},
+                {name: "Unit Price", field: "unit_price"},
+                {name: "Units In Stock", field: "units_in_stock"},
+                {name: "Discontinued*", field: "discontinued", "filter": false}
+            ];
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                sortable: true,
+                columns: columns,
+                data: ProductArray,
+                getCellValue: function (data, columnData) {
+                    return getFilterMatchValue(grid, data, columnData, z.dom.getValue("#filterInput").trim());
+                }
+            });
+            grid.addVisibleFilter(function (data) {
+                var filterValue = z.dom.getValue("#filterInput").trim();
+                if (filterValue) {
+                    return columnContains(grid, columns, data, filterValue.toLowerCase());
+                }
+                return true;
+            });
+            z.dom.event.on("#filterInput", "input", function () {
+                grid.update();
+            });
+            z.dom.event.on("#filterInput", "keydown.Escape", function (evt) {
+                z.dom.setValue("#filterInput", "");
+                grid.update();
+            });
+            var columnContains = function (grid, columns, data, filterText) {
+                var has = false;
+                columns.forEach(function (column) {
+                    if (column.filter !== false) {
+                        var field = column.field;
+                        if (field) {
+                            var prop = z.util.getObjectDeepValue(data.getProperties(false), field);
+                            if (prop && (prop + "").toLowerCase().indexOf(filterText) >= 0) {
+                                has = true;
+                                return false;
+                            }
+                        }
+                    }
+                });
+                return has;
+            };
+            var getFilterMatchValue = function (grid, data, columnData, filterValue) {
+                var prop = z.util.getObjectDeepValue(data.getProperties(false), columnData.get("field"));
+                if (filterValue && (z.util.isString(prop) || z.util.isNumber(prop))) {
+                    return (prop + "").replace(new RegExp(filterValue, 'gi'), function (val) {
+                        return '<span class="filter-matched">' + val + "</span>";
+                    });
+                }
+                return prop;
+            }
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container">
+    <div class="filter-form">
+        <input id="filterInput" placeholder="Filter..." value="c" autofocus onfocus="this.select()" autocomplete="off">
+    </div>
+</div>
+</body>
+</html>

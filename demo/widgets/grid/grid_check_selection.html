@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Check Selection</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                hoverable: true,
+                check_on_click: true
+            });
+            grid.setColumns([
+                {type: "check", fixed: true, width: 100},
+                {name: "#", field: "index", width: 300},
+                {name: "Language", field: "language", width: 300},
+                {name: "Ratings", field: "ratings", width: 300},
+                {name: "Change", field: "change", width: 300}
+            ]);
+            grid.setData(LanguageArray.slice(0, 10));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

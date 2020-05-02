@@ -1,0 +1,65 @@
+1.1 /2020-05-01
+Adds
+1.Tabs: Add mouse wheel event to scroll tabs.
+Fixed
+1.Grid: Fixed the issue that hidden columns are still visible when fixed(left/right).
+2.Grid: Fixed the issue that check_on_click was not working.
+3.Popup: Fixed the issue that the parent popup widget would also be closed when clicking outside of the child popup widget to close.
+
+1.0 /2020-01-01
+Adds
+1.Adds z.form.Form, a form manager that allows you to easily manage the form.
+2.Validator: Adds alphanumeric_dash rule to verify the alphanumeric underline and dash value.
+Fixed
+1.Pagination: Fixed paging information is not updated when setting total.
+
+0.6 /2019-11-01
+Adds
+1.Adds fade/slide/zoom animations.
+2.Grid: Adds row striped background color.
+3.Modal: Adds optional sizes.
+4.Pagination: Adds the 'layout' property to set the layout and child element visibility.
+Fixed
+1.Popup(Tooltip/Popover/Modal/MessageBox): Fixed an issue where element is lost due to continuous pop-up when the content is an element in dom.
+2.Grid/TreeGrid: Fixed an issue when scrolling to make the selected data visible, the scrollbar is not syncing.
+
+
+0.5 /2019-10-01
+Adds
+1.Grid: Compare function can be added to the column for custom sorting.
+2.Popup(Tooltip/Popover/Modal/MessageBox): Adds default animation effects.
+3.Notification: Adds type (success/info/warning/error) to display different notification types.
+
+
+0.4	/2019-09-01
+Adds
+1.Adds z.form.Validator to validate form fields.
+
+0.3	/2019-08-01
+Adds
+1.Adds z.widget.alert() method to display an alert box with a specified message and an OK button.
+  Adds z.widget.confirm() method to display a dialog box with the specified message, along with an OK and a Cancel button.
+  Adds z.widget.prompt() method to display a dialog box that prompts the visitor for input.
+2.Grid:Columns can be minimized。
+Fixed
+1.Tooltip: Fixed open/close exception caused by delay.
+2.Menu: When the mouse slides out,the expanded menu item is not collapsed,
+
+0.2	/2019-07-01
+Adds
+1.Adds z.widget.tooltip() method to add tooltip (open/close) event listener 
+  Adds z.widget.tooltip.init() method to initialize all tooltip components (data-toggle="zw-tooltip") 
+  Adds z.widget.tooltip.open(hostEle, tooltip) method to open a tooltip on hostEle 
+2.Adds z.widget.popover() method to add popover (open/close) event listener 
+  Adds z.widget.popover.init() method to initialize all popover components (data-toggle="zw-popover") 
+  Adds z.widget.popover.open(hostEle, content) method to open a popover on hostEle 
+3.Adds z.widget.modal(modalContentEle, props/false) method to toggle modal open/close. If the second argument is false, close the modal, otherwise open modal 
+  Adds z.widget.modal.init() method to initialize all modal components (data-toggle="zw-modal") 
+  Adds z.widget.modal.on() method to add modal (open/close) event listener 
+4.Popover/Tooltip will close when the window loses focus (blur)。
+Fixed
+1.Grid/TreeGrid: when deleting/adding data items, the header check column status is not updated.
+2.Notification: wrong position when position is "bottom_left" and direction is "right"
+
+0.1	/2019-06-01
+Release.

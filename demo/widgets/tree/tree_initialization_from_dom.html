@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Initialization From Dom</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var tree = z.widget.Tree(z.dom.query("#treeUL"));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small">
+    <ul id="treeUL">
+        <li name="This PC" icon="../_icons/windows/pc.png">
+            <ul>
+                <li icon="../_icons/windows/document_folder.png">Documents</li>
+                <li icon="../_icons/windows/download_folder.png">Downloads</li>
+                <li name="Windows(C:)" icon="../_icons/windows/drive.png">
+                    <ul>
+                        <li icon="../_icons/windows/folder.png">Program Files</li>
+                        <li icon="../_icons/windows/folder.png">Users</li>
+                        <li icon="../_icons/windows/folder.png">Windows</li>
+                    </ul>
+                </li>
+                <li name="Work(D:)" icon="../_icons/windows/drive.png">
+                    <ul>
+                        <li icon="../_icons/windows/folder.png">Work</li>
+                        <li icon="../_icons/windows/folder.png">Study</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

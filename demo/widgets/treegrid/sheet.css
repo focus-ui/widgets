@@ -1,0 +1,15 @@
+.sheet th {
+  color: #a8a8a8;
+}
+.sheet tr.item td:first-child {
+  color: #888;
+}
+.sheet tr.item:not(.leaf) {
+  cursor: pointer;
+}
+.sheet tr.item:not(.leaf) td:first-child {
+  border-right-color: transparent;
+}
+.sheet .filter-matched {
+  background-color: #ffff00;
+}

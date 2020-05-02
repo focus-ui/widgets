@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Events</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="../_lib/event-log.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                selectable: true,
+                overflow: "scroll",
+                data: SystemArray,
+                columns: [
+                    {name: "Name", field: "name", type: "check", width: 200},
+                    {name: "Type", field: "type", width: 130},
+                    {name: "Total Size", field: "total_size"},
+                    {name: "Free Space", field: "free_space"}
+                ]
+            });
+            treeGrid.onDataClick(function (evt) {
+                EventLogUtil.logEvent("onDataClick", {"data": evt.data.get("name")});
+            });
+            treeGrid.onDataDblClick(function (evt) {
+                EventLogUtil.logEvent("onDataDblClick", {"data": evt.data.get("name")});
+            });
+            treeGrid.onCheckChange(function (evt) {
+                var checkedArray = treeGrid.getChecked();
+                var checkDataNameArray = [];
+                checkedArray.forEach(function (data) {
+                    checkDataNameArray.push(data.get("name"));
+                });
+                EventLogUtil.logEvent("onCheckChange", {"data": EventLogUtil.getNames(evt.data), "type": evt.type});
+            });
+            treeGrid.onSelectChange(function (evt) {
+                var info = {"type": evt.type};
+                var dataArray = evt.data;
+                if (dataArray.length > 0) {
+                    var dataNames = [];
+                    dataArray.forEach(function (d) {
+                        dataNames.push(d.get("name"));
+                    });
+                    info.data = dataNames.join(",");
+                }
+                EventLogUtil.logEvent("onSelectChange", info);
+            });
+            treeGrid.onSelectBatchChange(function () {
+                var last = treeGrid.getLastSelected();
+                var info = {};
+                if (last) {
+                    info.lastSelect = last.get("name");
+                } else {
+                    info.lastSelect = "none";
+                }
+                EventLogUtil.logEvent("onSelectBatchChange", info);
+            });
+            treeGrid.onExpandChange(function (evt) {
+                EventLogUtil.logEvent("onExpandChange", {"data": EventLogUtil.getNames(evt.data), "type": evt.type});
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div class="setting">
+    <div id="eventTypeDiv">
+        <label>EventType: </label>
+        <label style="color: #3366cc">
+            <input id="onDataClick_check" type="checkbox" checked>
+            onDataClick
+        </label>
+        <label style="color: #dc3912">
+            <input id="onDataDblClick_check" type="checkbox" checked>
+            onDataDblClick
+        </label>
+        <label style="color:#ff9900 ">
+            <input id="onCheckChange_check" type="checkbox" checked>
+            onCheckChange
+        </label>
+        <label style="color:#109618">
+            <input id="onSelectChange_check" type="checkbox">
+            onSelectChange
+        </label>
+        <label style="color:#990099">
+            <input id="onSelectBatchChange_check" type="checkbox" checked>
+            onSelectBatchChange(Suggest)
+        </label>
+        <label style="color:#0099c6">
+            <input id="onExpandChange_check" type="checkbox" checked>
+            onExpandChange
+        </label>
+    </div>
+    <pre id="eventPre" class="log-pre"></pre>
+</div>
+</body>
+</html>

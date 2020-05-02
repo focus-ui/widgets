@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Sort Compare</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                sortable: true,
+                columns: [
+                    {name: "Interface", field: "interface"},
+                    {
+                        name: "IP*", field: "ip", sort: "asc",// asc/desc
+                        compare: function (rowData1, rowData2) {
+                            var ip1s = rowData1.get("ip").split(".");
+                            var ip2s = rowData2.get("ip").split(".");
+                            var _ip1 = ip1s[0] * 0x1000000 + ip1s[1] * 0x10000 + ip1s[2] * 0x100 + ip1s[3] * 1;
+                            var _ip2 = ip2s[0] * 0x1000000 + ip2s[1] * 0x10000 + ip2s[2] * 0x100 + ip2s[3] * 1;
+                            return _ip1 - _ip2;
+                        }
+                    },
+                    {name: "Bandwidth", field: "bandwidth"},
+                    {name: "Status", field: "status"}
+                ],
+                data: [
+                    {interface: "0/0/0/0", ip: "237.102.253.122", bandwidth: "100000", status: "up"},
+                    {interface: "0/0/0/1", ip: "9.79.160.13", bandwidth: "200000", status: "up"},
+                    {interface: "0/0/0/2", ip: "125.71.236.117", bandwidth: "100000", status: "down"},
+                    {interface: "0/0/0/3", ip: "9.252.71.171", bandwidth: "100000", status: "up"},
+                    {interface: "0/0/0/4", ip: "236.7.231.6", bandwidth: "300000", status: "up"},
+                    {interface: "0/0/0/5", ip: "113.167.5.56", bandwidth: "100000", status: "down"},
+                    {interface: "0/0/0/6", ip: "88.172.92.162", bandwidth: "100000", status: "up"}
+                ]
+            });
+
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

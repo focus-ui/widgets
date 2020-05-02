@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Accordion Expand</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var tree = z.widget.Tree({
+                appendTo: ".container",
+                accordion: true,
+                data: [
+                    {
+                        name: "This PC", icon: "../_icons/windows/pc.png",
+                        children: [
+                            {name: "Documents", icon: "../_icons/windows/document_folder.png"},
+                            {name: "Downloads", icon: "../_icons/windows/download_folder.png"},
+                            {
+                                name: "Windows(C:)", icon: "../_icons/windows/drive.png",
+                                children: [
+                                    {name: "Program Files", icon: "../_icons/windows/folder.png"},
+                                    {name: "Users", icon: "../_icons/windows/folder.png"},
+                                    {name: "Windows", icon: "../_icons/windows/folder.png"}
+                                ]
+                            },
+                            {
+                                name: "Work(D:)", icon: "../_icons/windows/drive.png",
+                                children: [
+                                    {name: "Work", icon: "../_icons/windows/folder.png"},
+                                    {name: "Study", icon: "../_icons/windows/folder.png"}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "Quick access", icon: "../_icons/windows/quick_access.png",
+                        children: [
+                            {name: "Documents", icon: "../_icons/windows/document_folder.png"},
+                            {name: "Downloads", icon: "../_icons/windows/download_folder.png"},
+                            {name: "Pictures", icon: "../_icons/windows/picture_folder.png"}
+                        ]
+                    }
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

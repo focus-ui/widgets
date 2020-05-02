@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Header Template</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .filter-matched {
+            background-color: #ffff00;
+        }
+
+        #filterInput {
+            width: 150px;
+            padding: .5em .6em;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px #ddd;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        var grid;
+        var handleRemove = function (product_id) {
+            var data = grid.findData({product_id: product_id | 0});
+            if (window.confirm("Remove " + data.get("product_name") + "?")) {
+                grid.removeData(data);
+            }
+        };
+        var handleFilterInput = function (evt) {
+            grid.update(true);
+        };
+        var handleFilterKeydown = function (evt) {
+            if (evt.keyCode === 27) {//esc
+                z.dom.setValue("#filterInput", "");
+                grid.update(true);
+            }
+        };
+        z.ready(function () {
+            var columns = [
+                {name: "Product", field: "product_name"},
+                {name: "Unit Price", field: "unit_price"},
+                {name: "Units In Stock", field: "units_in_stock"},
+                {name: "Discontinued*", field: "discontinued", "filter": false},
+                {
+                    name: "#", width: 200,
+                    sortable: false,
+                    head_template: z.dom.query("#headerTemplate").innerHTML,
+                    template: z.dom.query("#operateTemplate").innerHTML
+                }
+            ];
+            grid = z.widget.Grid({
+                overflow: "scroll",
+                sortable: true,
+                appendTo: ".container",
+                columns: columns,
+                getCellValue: function (data, columnData) {
+                    return getFilterMatchValue(grid, data, columnData, z.dom.getValue("#filterInput").trim());
+                }
+            });
+            grid.addVisibleFilter(function (data) {
+                var filterValue = z.dom.getValue("#filterInput").trim();
+                if (filterValue) {
+                    return columnContains(grid, columns, data, filterValue.toLowerCase());
+                }
+                return true;
+            });
+            grid.setData(ProductArray);
+
+            var columnContains = function (grid, columns, data, filterText) {
+                var has = false;
+                columns.forEach(function (column) {
+                    if (column.filter !== false) {
+                        var field = column.field;
+                        if (field) {
+                            var prop = z.util.getObjectDeepValue(data.getProperties(false), field);
+                            if (prop && (prop + "").toLowerCase().indexOf(filterText) >= 0) {
+                                has = true;
+                                return false;
+                            }
+                        }
+                    }
+                });
+                return has;
+            };
+            var getFilterMatchValue = function (grid, data, columnData, filterValue) {
+                var prop = z.util.getObjectDeepValue(data.getProperties(false), columnData.get("field"));
+                if (filterValue && (z.util.isString(prop) || z.util.isNumber(prop))) {
+                    return (prop + "").replace(new RegExp(filterValue, 'gi'), function (val) {
+                        return '<span class="filter-matched">' + val + "</span>";
+                    });
+                }
+                return prop;
+            }
+        });
+    </script>
+</head>
+<script type="text/html" id="headerTemplate">
+    <input id="filterInput" oninput="handleFilterInput(event)" onkeydown="handleFilterKeydown(event)" placeholder="Filter...">
+</script>
+<script type="text/html" id="operateTemplate">
+    <button onclick="handleRemove('<%product_id%>')">Remove</button>
+</script>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

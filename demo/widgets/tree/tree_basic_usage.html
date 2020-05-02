@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Basic Usage</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var tree = z.widget.Tree({
+                appendTo: ".container",
+                data: [
+                    {
+                        name: "This PC",
+                        children: [
+                            {name: "Documents"},
+                            {name: "Downloads"},
+                            {
+                                name: "Windows(C:)",
+                                children: [
+                                    {name: "Program Files"},
+                                    {name: "Users"},
+                                    {name: "Windows"}
+                                ]
+                            },
+                            {
+                                name: "Work(D:)",
+                                children: [
+                                    {name: "Work"},
+                                    {name: "Study"}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            });
+            tree.expandAll();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip To Center</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        button {
+            width: 8em;
+        }
+
+        table {
+            width: 100%;
+            height: 100%;
+            border-collapse: separate;
+            border-spacing: 0.6em;
+            table-layout: fixed;
+        }
+
+        table td {
+            text-align: center;
+            background-color: #1abc9c;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.tooltip.init();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container" >
+    <table>
+        <tbody>
+        <tr><!--//&gt-->
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX < windowWidth/3<br>hostCenterY < windowHeight/3">right_down
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX >= windowWidth/3<br>hostCenterX <= windowWidth*2/3<br>hostCenterY < windowHeight/3">down
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX > windowWidth*2/3<br>hostCenterY < windowHeight/3">left_down
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX < windowWidth/3<br>hostCenterY >= windowHeight/3<br>hostCenterY <= windowHeight*2/3">right
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX >= windowWidth/3<br>hostCenterX <= windowWidth*2/3<br>hostCenterY >= windowHeight/3<br>hostCenterY <= windowHeight*2/3">
+                    down
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX > windowWidth*2/3<br>hostCenterY >= windowHeight/3<br>hostCenterY <= windowHeight*2/3">left
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX < windowWidth/3<br>hostCenterY > windowHeight*2/3">right_up
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX >= windowWidth/3<br>hostCenterX =< windowWidth*2/3<br>hostCenterY > windowHeight*2/3">up
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-secondary" data-toggle="zw-tooltip" data-direction="screen_center"
+                        data-content="Hello Tooltip!!<br><br>hostCenterX > windowWidth*2/3<br>hostCenterY > windowHeight*2/3">left_up
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

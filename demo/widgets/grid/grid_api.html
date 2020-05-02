@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid API</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                selectable: true,
+                overflow: "scroll",
+                hoverable: true,
+                columns:[
+                    {type: "check"},
+                    {name: "Name", field: "name"},
+                    {name: "Col1", field: "field1"},
+                    {name: "Col2", field: "field2"}
+                ],
+                data:[
+                    {name: "Item1", field1: Math.random() * 100 | 0, field2: Math.random() * 100 | 0},
+                    {name: "Item2", field1: Math.random() * 100 | 0, field2: Math.random() * 100 | 0},
+                    {name: "Item3", field1: Math.random() * 100 | 0, field2: Math.random() * 100 | 0}
+                ]
+            });
+            //Data
+            z.dom.event.onclick("#addBtn", function () {
+                var item = {name: z.dom.getValue("#nameInput"), field1: Math.random() * 100 | 0, field2: Math.random() * 100 | 0, timestamp: Date.now()};
+                grid.addData(item);//addData(item/array)
+                grid.select(item);
+            });
+            z.dom.event.onclick("#addTopBtn", function () {
+                var item = {name: z.dom.getValue("#nameInput"), field1: Math.random() * 100 | 0, field2: Math.random() * 100 | 0, timestamp: Date.now()};
+                grid.addData(item, 0);//addData(item/array,index)
+                grid.select(item);
+            });
+            z.dom.event.onclick("#removeBtn", function () {
+                grid.removeData({name: z.dom.getValue("#nameInput")});
+            });
+            z.dom.event.onclick("#removeSelectBtn", function () {
+                var checked = grid.getChecked();
+                if (checked.length > 0) {//if checked
+                    grid.removeData(checked);
+                } else {
+                    grid.removeData(grid.getLastSelected());//selected
+                }
+            });
+            z.dom.event.onclick("#clearBtn", function () {
+                grid.clearData();//clearData()
+            });
+            z.dom.event.onclick("#getDataBtn", function () {
+                var selected = grid.getDataArray();//getSelected();
+                var nameArray = [];
+                selected.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getDataArray", duration: 2000})
+            });
+            //Select
+            z.dom.event.onclick("#selectBtn", function () {
+                grid.select({name: z.dom.getValue("#selectNameInput")});//select(item/array)
+            });
+            z.dom.event.onclick("#unselectBtn", function () {
+                grid.unselect({name: z.dom.getValue("#selectNameInput")});//unselect(item/array)
+            });
+            z.dom.event.onclick("#selectAppendBtn", function () {
+                grid.select({name: z.dom.getValue("#selectNameInput")}, true);//select(item/array,true)
+            });
+            z.dom.event.onclick("#selectAllBtn", function () {
+                grid.selectAll();//selectAll()
+            });
+            z.dom.event.onclick("#clearSelectBtn", function () {
+                grid.clearSelect();//clearSelect()
+            });
+            z.dom.event.onclick("#getSelectedBtn", function () {
+                var selected = grid.getSelected();//getSelected();
+                var nameArray = [];
+                selected.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getSelected", duration: 2000})
+            });
+            z.dom.event.onclick("#getLastSelectedBtn", function () {
+                var lastSelected = grid.getLastSelected();//getLastSelected()
+                z.widget.notify(lastSelected ? lastSelected.get("name") : "", {title: "getLastSelected", duration: 2000})
+            });
+            //Check
+            z.dom.event.onclick("#checkBtn", function () {
+                grid.check({name: z.dom.getValue("#checkNameInput")});//check(item/array)
+            });
+            z.dom.event.onclick("#uncheckBtn", function () {
+                grid.uncheck({name: z.dom.getValue("#checkNameInput")});//uncheck(item/array)
+            });
+            z.dom.event.onclick("#checkAppendBtn", function () {
+                grid.check({name: z.dom.getValue("#checkNameInput")}, true);//check(item/array,true)
+            });
+            z.dom.event.onclick("#checkAllBtn", function () {
+                grid.checkAll();//checkAll()
+            });
+            z.dom.event.onclick("#clearCheckBtn", function () {
+                grid.clearCheck();//clearCheck()
+            });
+            z.dom.event.onclick("#getCheckedBtn", function () {
+                var checked = grid.getChecked();//getChecked()
+                var nameArray = [];
+                checked.forEach(function (item) {
+                    nameArray.push(item.get("name"));
+                });
+                z.widget.notify(nameArray.join(","), {title: "getChecked", duration: 2000})
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div class="setting">
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Data</h5>
+            <input id="nameInput" value="Item">
+            <button id="addBtn" class="btn btn-secondary btn-sm" title="view.addData(item/array)">addData</button>
+            <button id="addTopBtn" class="btn btn-secondary btn-sm" title="view.addData(item/array,0)">addData(top)</button>
+            <button id="removeBtn" class="btn btn-secondary btn-sm" title="view.removeData(item/array)">removeData</button>
+            <button id="removeSelectBtn" class="btn btn-secondary btn-sm" title="view.removeData(item/array)">removeData(select)</button>
+            <button id="clearBtn" class="btn btn-secondary btn-sm" title="view.clearData()">clearData</button>
+            <button id="getDataBtn" class="btn btn-success btn-sm" title="view.getDataArray()">getDataArray</button>
+        </div>
+    </div>
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Select</h5>
+            <input id="selectNameInput" value="Item2">
+            <button id="selectBtn" class="btn btn-secondary btn-sm" title="view.select(item/array)">select</button>
+            <button id="unselectBtn" class="btn btn-secondary btn-sm" title="view.unselect(item/array)">unselect</button>
+            <button id="selectAppendBtn" class="btn btn-secondary btn-sm" title="view.select(item/array,true)">select(append)</button>
+            <button id="selectAllBtn" class="btn btn-secondary btn-sm" title="view.selectAll()">selectAll</button>
+            <button id="clearSelectBtn" class="btn btn-secondary btn-sm" title="view.clearSelect()">clearSelect</button>
+            <button id="getSelectedBtn" class="btn btn-secondary btn-sm" title="view.getSelected()">getSelected</button>
+            <button id="getLastSelectedBtn" class="btn btn-success btn-sm" title="view.getLastSelected()">getLastSelected</button>
+        </div>
+    </div>
+    <div class="card border-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Check</h5>
+            <input id="checkNameInput" value="Item3">
+            <button id="checkBtn" class="btn btn-secondary btn-sm" title="view.check(item/array)">check</button>
+            <button id="uncheckBtn" class="btn btn-secondary btn-sm" title="view.uncheck(item/array)">uncheck</button>
+            <button id="checkAppendBtn" class="btn btn-secondary btn-sm" title="view.check(item/array,true)">check(append)</button>
+            <button id="checkAllBtn" class="btn btn-secondary btn-sm" title="view.checkAll()">checkAll</button>
+            <button id="clearCheckBtn" class="btn btn-secondary btn-sm" title="view.clearCheck()">clearCheck</button>
+            <button id="getCheckedBtn" class="btn btn-success btn-sm" title="view.getChecked()">getChecked</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

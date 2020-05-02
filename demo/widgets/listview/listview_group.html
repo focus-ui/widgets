@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView Group</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .z-listview .item > .node {
+            border-right: 2px solid transparent;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid #eee;
+        }
+
+        .z-listview .item.selected > .node {
+            background-color: #e6f7ff;
+            color: #1890ff;
+            border-right-color: #1890ff;
+        }
+
+        .z-listview .item.unselectable > .node {
+            padding: 0 0.6em;
+            color: #818181;
+            background: #efefef;
+            font-size: 92%;
+            border: none;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView({
+                appendTo: ".container",
+                data: [
+                    {name: "A", "selectable": false},
+                    {name: "Access", icon: "../_icons/office/Access.png"},
+                    {name: "E", "selectable": false},
+                    {name: "Excel", icon: "../_icons/office/Excel.png"},
+                    {name: "Exchange", icon: "../_icons/office/Exchange.png"},
+                    {name: "O", "selectable": false},
+                    {name: "OneDrive", icon: "../_icons/office/OneDrive.png"},
+                    {name: "OneNote", icon: "../_icons/office/OneNote.png"},
+                    {name: "Outlook", icon: "../_icons/office/Outlook.png"},
+                    {name: "P", "selectable": false},
+                    {name: "PowerPoint", icon: "../_icons/office/PowerPoint.png"},
+                    {name: "Publisher", icon: "../_icons/office/Publisher.png"},
+                    {name: "S", "selectable": false},
+                    {name: "SharePoint", icon: "../_icons/office/SharePoint.png"},
+                    {name: "Skype", icon: "../_icons/office/Skype.png"},
+                    {name: "T", "selectable": false},
+                    {name: "Teams", icon: "../_icons/office/Teams.png"},
+                    {name: "V", "selectable": false},
+                    {name: "Visio", icon: "../_icons/office/Visio.png"},
+                    {name: "W", "selectable": false},
+                    {name: "Word", icon: "../_icons/office/Word.png"},
+                    {name: "Y", "selectable": false},
+                    {name: "Yammer", icon: "../_icons/office/Yammer.png"}
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small"></div>
+</body>
+</html>

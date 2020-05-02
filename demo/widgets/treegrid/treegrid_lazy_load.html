@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Lazy Load</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <script>
+        var loadChildren = function (treeGrid, data) {
+            if (data.get("loaded") === true) {
+                return;
+            }
+            data.set("icon", "../_icons/loading.gif");
+            data.set("disabled", true);
+            z.util.callLater(function () {
+                var children = [];
+                var type = data.get("type");
+                if (type === "region") {
+                    children.push({parent: data, name: "Country1", type: "country", cities: 3});
+                    children.push({parent: data, name: "Country2", type: "country", cities: 3});
+                } else if (type === "country") {
+                    children.push({parent: data, name: "City1", type: "city", cities: 1});
+                    children.push({parent: data, name: "City2", type: "city", cities: 1});
+                    children.push({parent: data, name: "City3", type: "city", cities: 1});
+                }
+                treeGrid.addData(children);
+                data.set("loaded", true);
+                data.set("disabled", false);
+                data.removeProperty("icon", null);
+            }, 1200);
+        };
+        z.ready(function () {
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                sortable: true,
+                columns: [
+                    {name: "Area", field: "name", template: z.dom.query("#iconTemplate").innerHTML},
+                    {name: "Cities", field: "cities"}
+                ],
+                hasChildrenVisible: function (data) {
+                    var type = data.get("type");
+                    return type === "region" || type === "country";
+                },
+                onExpand: function (data) {
+                    console.log(data.get("name"));
+                    loadChildren(treeGrid, data);
+                }
+            });
+            treeGrid.setData([
+                {name: "Region1", type: "region", cities: 6},
+                {name: "Region2", type: "region", cities: 6}
+            ]);
+        });
+    </script>
+</head>
+<script type="text/html" id="iconTemplate">
+    <%if(icon){%>
+    <img src="<%icon%>">
+    <%}%>
+    <%name%>
+</script>
+<body class="demo">
+<div class="container half"></div>
+</body>
+</html>

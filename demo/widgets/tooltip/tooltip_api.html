@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip API</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            z.widget.tooltip.init();//Initialize all tooltips with data-toggle="zw-tooltip" attribute
+            z.widget.tooltip("#autoBtn");//Add tooltip open/close listener
+            z.dom.event.on("#onBtn", "mouseenter", function () {//Call api to open tooltip
+                z.widget.tooltip.open("#onBtn", "z.widget.tooltip.open(hostElement,tooltip)<br>z.widget.tooltip.close()");
+            });
+            z.dom.event.on("#onBtn", "mouseleave", function () {//When clicking outside, tooltip closes
+                z.widget.tooltip.close();
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button class="btn btn-secondary" data-toggle="zw-tooltip" data-content="z.widget.tooltip.init()">init()</button>
+    <button id="autoBtn" class="btn btn-success" data-content="z.widget.tooltip(element)">tooltip()</button>
+    <button id="onBtn" class="btn btn-danger">open()/close()</button>
+</div>
+</body>
+</html>

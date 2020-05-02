@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Custom Sort</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var pageConfig, sortConfig;
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                sortable: "custom",//set sortable to 'custom'
+                pageable: {
+                    page_size: 5,
+                    page_sizes: [5,10,20],
+                    info: true,
+                    total: ProductArray.length
+                },
+                onPageChange: function (config) {
+                    pageConfig = config;
+                    setGridData();
+                },
+                onPageRefresh: function (config) {
+                    pageConfig = config;
+                    setGridData();
+                },
+                onSortChange: function (config) {
+                    sortConfig = config;
+                    setGridData();
+                }
+            });
+
+            grid.setColumns([
+                {name: "Product", field: "product_name"},
+                {name: "Unit Price", field: "unit_price"},
+                {name: "Units In Stock", field: "units_in_stock"},
+                {name: "Discontinued", field: "discontinued"}
+            ]);
+
+            var setGridData = function () {
+                var data = ProductArray.slice();
+                if (sortConfig) {
+                    var field = sortConfig.field;
+                    data.sort(function (d1, d2) {
+                        var v1 = d1[field];
+                        var v2 = d2[field];
+                        if (v1 > v2) {
+                            return 1;
+                        }
+                        if (v1 < v2) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                    if (sortConfig.order !== "asc") {// asc/desc
+                        data.reverse();
+                    }
+                }
+                if (pageConfig) {
+                    data = data.slice(pageConfig.start - 1, pageConfig.end);
+                }
+                grid.setData(data);
+            };
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

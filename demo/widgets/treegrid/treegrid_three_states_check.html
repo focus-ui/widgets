@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Three States Check</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                overflow: "scroll",
+                three_states_check: false,//default:true
+                data: SystemArray,
+                columns: [
+                    {name: "Name", field: "name",width:260, type: "check"},
+                    {name: "Type", field: "type"},
+                    {name: "Total Size", field: "total_size"},
+                    {name: "Free Space", field: "free_space"}
+                ]
+            });
+            treeGrid.expandAll();
+            z.dom.event.onchange("#threeStatesCheck", function () {
+                treeGrid.set("three_states_check", z.dom.getValue("#threeStatesCheck"));
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div class="setting">
+    <label><input id="threeStatesCheck" type="checkbox">three_states_check</label>
+</div>
+</body>
+</html>

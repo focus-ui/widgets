@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Sortable</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./GridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var grid = z.widget.Grid({
+                appendTo: ".container",
+                overflow: "scroll",
+                sortable: true
+            });
+            grid.setColumns([
+                {name: "Product", field: "product_name"},
+                {name: "Unit Price", field: "unit_price", sort: "desc"},//  asc/desc
+                {name: "Units In Stock", field: "units_in_stock"},
+                {name: "Discontinued", field: "discontinued", sortable: false}
+            ]);
+            grid.setData(ProductArray);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

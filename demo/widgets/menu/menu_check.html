@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check Menu</title>
+    <link rel="stylesheet" href="../_lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./MenuDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var menu = z.widget.Menu({
+                appendTo: ".container",
+                "root_expand_icon_visible": true
+            });
+            menu.setData([
+                {
+                    name: "Customize", icon: "../_icons/menu/setting.png",
+                    children: [
+                        {name: "Undo", checkbox_visible: true},
+                        {name: "Redo", checkbox_visible: true},
+                        {name: "Delete", checkbox_visible: true},
+                        {name: "Properties", checkbox_visible: true, checkable: false},
+                        {name: "New folder", checkbox_visible: true},
+                        {name: "Rename", checkbox_visible: true},
+                        {divider: true},
+                        {name: "Show bellow the Ribbon", checkbox_visible: true}
+                    ]
+                }
+            ]);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container border auto-height"></div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validator Modal Validate</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/form.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        z.ready(function () {
+            var validator = z.form.Validator("#modalDiv", [
+                {name: "username", rules: "required|alphanumeric"},
+                {name: "email", rules: "email"},
+                {name: "password", rules: "minlength[8]"},
+                {name: "confirm_password", rules: "match[password]"},
+                {name: "city", rules: "required"},
+                {name: "agree", rules: "required"}
+            ]);
+            z.widget.modal("#modalDiv", {close_on_click_outside: true});//open
+            z.dom.event.onclick("#addBtn", function () {
+                validator.reset();
+                z.widget.modal("#modalDiv", {close_on_click_outside: true});//open
+            });
+
+            z.dom.event.onclick("#okBtn", function () {
+                var errArr = validator.validate();
+                if (errArr.length > 0) {
+                    return;
+                }
+                var values = {};
+                z.dom.queryAll("[name]", "#modalDiv").forEach(function (item) {
+                    values[item.getAttribute("name")] = z.dom.getValue(item);
+                });
+                console.log(values);
+                z.widget.modal("#modalDiv", false);//close
+            });
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button id="addBtn" class="btn btn-success">Add</button>
+</div>
+<div id="modalDiv" class="zw-modal">
+    <div class="content">
+        <div class="header">
+            <span id="titleDiv" class="title">Add</span>
+            <span class="close" data-dismiss="modal">×</span>
+        </div>
+        <div class="body container-fluid">
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" name="username">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input class="form-control" name="email">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="password">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label">Confirm Password</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="confirm_password">
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label">City</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="city">
+                        <option></option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <label class="col-sm-3 col-form-label"> </label>
+                <div class="col-sm-8">
+                    <label>
+                        <input type="checkbox" name="agree" class="form-check-input">
+                        Agree to the Website Membership Agreement, Privacy Policy.
+                        <span class="z-validator-message" v-message-for="agree"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <button type="button" id="okBtn" class="btn btn-primary btn-sm" autofocus>Ok</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

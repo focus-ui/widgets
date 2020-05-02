@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabs Postion</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var tabs = z.widget.Tabs({
+                appendTo: ".container"
+            });
+            tabs.setData([
+                {name: "Tab1", content: "Tab1 content"},
+                {name: "Tab2", content: "Tab2 content"},
+                {name: "Tab3", content: "Tab3 content"},
+                {name: "Tab4", content: "Tab4 content"},
+                {name: "Tab5", content: "Tab5 content"},
+                {name: "Tab6", content: "Tab6 content"},
+                {name: "Tab7", content: "Tab7 content"},
+                {name: "Tab8", content: "Tab8 content"},
+                {name: "Tab9", content: "Tab9 content"},
+                {name: "Tab10", content: "Tab10 content"}
+            ]);
+            z.dom.event.onchange("#postionSelect", function () {
+                tabs.set("tab_position", z.dom.getValue("#postionSelect"));
+            });
+            z.dom.event.onwheel(".tabs",function (evt) {
+                tabs._rootUL.scrollLeft+=2;
+                console.log(evt)
+            })
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container half"></div>
+<div class="setting">
+    Position:
+    <select id="postionSelect">
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+    </select>
+</div>
+</body>
+</html>

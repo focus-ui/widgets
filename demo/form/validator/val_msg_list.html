@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validator Message List</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <link rel="stylesheet" href="../_lib/form.css">
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script>
+        z.ready(function () {
+            var validator = z.form.Validator("#formDiv", [
+                {name: "username", rules: "required|alphanumeric", message: "The name field must contain alpha-numeric characters"},
+                {selector: "#emailInput", rules: "email", message: "The email field must be a valid email address"},
+                {id: "pwdInput", rules: "minlength[8]", message: "The password field must be at least 8 characters in length"},
+                {name: "confirm_password", rules: "match[#pwdInput]", message: "The confirm password field must match Password field"},
+                {name: "city", rules: "required", message: "The city field is required"},
+                {name: "agree", rules: "required", message: "Please agree to the Website Membership Agreement, Privacy Policy"}
+            ]);
+            validator.set("message_container", "#msgContainer");
+            z.dom.event.onclick("#valBtn", function () {
+                var errArr = validator.validate();
+                console.log(errArr.length > 0 ? "error count: " + errArr.length : "success");
+            });
+            z.dom.event.onclick("#resetBtn", function () {
+                validator.reset()
+            })
+        });
+    </script>
+</head>
+<body class="demo">
+<div id="formDiv" class="container container-fluid">
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-8">
+            <input class="form-control" name="username">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-8">
+            <input id="emailInput" class="form-control" name="email">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-8">
+            <input id="pwdInput" type="password" class="form-control" name="password">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">Confirm Password</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control" name="confirm_password">
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label">City</label>
+        <div class="col-sm-8">
+            <select class="form-control" name="city">
+                <option></option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"> </label>
+        <div class="col-sm-8">
+            <label>
+                <input type="checkbox" name="agree" class="form-check-input">
+                Agree to the Website Membership Agreement, Privacy Policy.
+            </label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-sm-3 col-form-label"> </label>
+        <div class="col-sm-8">
+            <ul id="msgContainer"></ul>
+            <button id="valBtn" class="btn btn-primary">Validate</button>
+            <button id="resetBtn" class="btn btn-success">Reset</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

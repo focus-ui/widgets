@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tooltip Trigger</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <style>
+        .container > span {
+            display: inline-block;
+            width: 8em;
+            margin-bottom: 1em;
+        }
+        .container > span button{
+            width: 8em;
+        }
+    </style>
+    <script>
+        z.ready(function () {
+            z.widget.tooltip.init();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding v-buttons">
+    <button class="btn btn-primary"
+            data-toggle="zw-tooltip" data-content="<b>hover(default)</b><br>Hello Tooltip!!">hover(default)
+    </button>
+    <button class="btn btn-secondary"
+            data-toggle="zw-tooltip" data-trigger="click" data-content="<b>click</b><br>Hello Tooltip!!">click
+    </button>
+    <button class="btn btn-success" onclick="blur()"
+            data-toggle="zw-tooltip" data-trigger="focus" data-content="<b>focus</b><br>Hello Tooltip!!">focus
+    </button>
+    <span data-toggle="zw-tooltip" data-content="<b>disabled</b><br>Hello Tooltip!!" style="display: inline-block">
+         <button class="btn btn-outline-dark" disabled>disabled</button>
+    </span>
+    <button class="btn btn-danger"
+            data-toggle="zw-tooltip" data-trigger="click" data-auto-close="false" data-close-on-click="true"
+            data-content="<b>close on click</b><br>Hello Tooltip!!">close on click
+    </button>
+    <br>
+</div>
+</body>
+</html>

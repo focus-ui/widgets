@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Animation</title>
+    <link rel="stylesheet" href="../_lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var openModal = function () {
+                var animation = z.dom.getValue("[name=animation]");
+                var animationArr = animation.split("/");
+                z.widget.modal("#modalDiv", {
+                    open_animation: "z-animation-" + animationArr[0],
+                    close_animation: "z-animation-" + animationArr[1]
+                });
+            };
+            z.dom.event.onchange("[name=animation]", openModal);
+            z.dom.event.onclick("#openBtn", openModal);
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container padding">
+    <select name="animation">
+        <optgroup label="fade">
+            <option>fadeIn/fadeOut</option>
+            <option>fadeInUp/fadeOutDown</option>
+            <option>fadeInDown/fadeOutUp</option>
+            <option>fadeInLeft/fadeOutRight</option>
+            <option>fadeInRight/fadeOutLeft</option>
+        </optgroup>
+        <optgroup label="slide">
+            <option>slideInUp/slideOutDown</option>
+            <option>slideInDown/slideOutUp</option>
+            <option>slideInLeft/slideOutRight</option>
+            <option>slideInRight/slideOutLeft</option>
+        </optgroup>
+        <optgroup label="zoom">
+            <option>zoomIn/zoomOut</option>
+        </optgroup>
+    </select>
+    <button id="openBtn" class="btn btn-success">open</button>
+    <div id="modalDiv" class="zw-modal">
+        <div class="content">
+            <div class="header">
+                <span class="title">About ZWidgets</span>
+                <span class="close" data-dismiss="modal">&times;</span>
+            </div>
+            <div class="body">
+                <p>ZWidgets is UI component library based on HTML5 and MVVM for quickly building powerful and high-performance web applications.</p>
+                <ul>
+                    <li>Fast & Light
+                        <p>Quickly build lightning-fast applications with the simple codes, no dependence on other frameworks.</p>
+                    </li>
+                    <li>Easy to use
+                        <p>Based on the MVVM and OOP, if you know basic JavaScript and HTML, you can use it.</p>
+                    </li>
+                    <li>Extensible
+                        <p>Rich and complete components with powerful extensions, make it easy to customize.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <button class="btn btn-primary btn-sm" data-dismiss="modal" autofocus>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

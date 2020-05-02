@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TreeGrid Sort</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script src="./TreeGridDemoData.js"></script>
+    <script>
+        z.ready(function () {
+            var treeGrid = z.widget.TreeGrid({
+                appendTo: ".container",
+                overflow: "scroll",
+                sortable: true
+            });
+            treeGrid.setColumns([
+                {name: "Interface", field: "interface"},
+                {
+                    name: "IP", field: "ip",
+                    compare: function (rowData1, rowData2) {
+                        var ip1s = rowData1.get("ip").split(".");
+                        var ip2s = rowData2.get("ip").split(".");
+
+                        var _ip1 = ip1s[0] * 0x1000000 + ip1s[1] * 0x10000 + ip1s[2] * 0x100 + ip1s[3] * 1;
+                        var _ip2 = ip2s[0] * 0x1000000 + ip2s[1] * 0x10000 + ip2s[2] * 0x100 + ip2s[3] * 1;
+
+                        return _ip1 - _ip2;
+                    }
+                },
+                {name: "Bandwidth", field: "bandwidth"},
+                {name: "Status", field: "status"}
+            ]);
+            treeGrid.setData([
+                {
+                    interface: "0/0/0/0", ip: "212.221.81.71", bandwidth: "100000", status: "up",
+                    children: [
+                        {interface: "0/0/0/0.1", ip: "70.93.28.126", bandwidth: "100", status: "up"},
+                        {interface: "0/0/0/0.2", ip: "234.250.180.196", bandwidth: "200", status: "up"}
+                    ]
+                },
+                {
+                    interface: "0/0/0/1", ip: "12.93.68.13", bandwidth: "300000", status: "up",
+                    children: [
+                        {interface: "0/0/0/1.1", ip: "233.28.220.159", bandwidth: "100", status: "down"},
+                        {interface: "0/0/0/1.2", ip: "12.216.2.71", bandwidth: "200", status: "up"}
+                    ]
+                },
+                {
+                    interface: "0/0/0/3", ip: "111.255.116.12", bandwidth: "200000", status: "up",
+                    children: [
+                        {interface: "0/0/0/3.1", ip: "100.212.25.188", bandwidth: "300", status: "up"},
+                        {interface: "0/0/0/3.2", ip: "166.68.26.11", bandwidth: "200", status: "down"},
+                        {interface: "0/0/0/3.3", ip: "83.238.213.90", bandwidth: "100", status: "up"}
+                    ]
+                }
+            ]);
+            treeGrid.expandAll();
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container"></div>
+</body>
+</html>

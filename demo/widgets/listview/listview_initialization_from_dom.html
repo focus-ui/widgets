@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ListView Initialization From Dom</title>
+    <link rel="stylesheet" href="../_lib/demo.css">
+    <!--<link rel="stylesheet" href="../_lib/focus-ui/theme/bootstrap.min.css">-->
+    <script src="../_lib/focus-ui/focus-ui.min.js"></script>
+    <script src="../_lib/theme.js"></script>
+    <script>
+        z.ready(function () {
+            var listView = z.widget.ListView(z.dom.query("#listUL"));
+        });
+    </script>
+</head>
+<body class="demo">
+<div class="container small">
+    <ul id="listUL">
+        <li name="Access" icon="../_icons/office/Access.png"></li>
+        <li name="Excel" icon="../_icons/office/Excel.png"></li>
+        <li name="Exchange" icon="../_icons/office/Exchange.png"></li>
+        <li name="OneDrive" icon="../_icons/office/OneDrive.png"></li>
+        <li name="OneNote" icon="../_icons/office/OneNote.png"></li>
+        <li name="Outlook" icon="../_icons/office/Outlook.png"></li>
+        <li name="PowerPoint" icon="../_icons/office/PowerPoint.png"></li>
+        <li name="Publisher" icon="../_icons/office/Publisher.png"></li>
+        <li name="SharePoint" icon="../_icons/office/SharePoint.png"></li>
+        <li name="Skype" icon="../_icons/office/Skype.png"></li>
+        <li name="Teams" icon="../_icons/office/Teams.png"></li>
+        <li name="Visio" icon="../_icons/office/Visio.png"></li>
+        <li name="Word" icon="../_icons/office/Word.png"></li>
+        <li name="Yammer" icon="../_icons/office/Yammer.png"></li>
+    </ul>
+</div>
+</body>
+</html>
